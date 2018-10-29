@@ -24,11 +24,21 @@ class Filters extends React.Component {
 
     state = {
         age: '',
+        sex: '',
+        tumorDiagnosis: '',
+        KPS: '',
+        ECOG: '',
+        molecularMarkers: '',
+        primaryRecurrent: '',
+        otherTrials: '',
+        otherConditions: '',
         name: 't',
         labelWidth: 0
     };
 
     handleChange = event => {
+        console.log(event.target.name);
+        console.log(event.target.value);
         this.setState({ [event.target.name]: event.target.value });
     };
 
@@ -43,15 +53,17 @@ class Filters extends React.Component {
                     justify="center"
                     alignItems="center"
                 >
-                    <Grid item xs={4}>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={1}>
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="age-simple">Age</InputLabel>
                             <Select
+                            style={{width: 80}}
                                 value={this.state.age}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                name: 'age',
-                                id: 'age-simple',
+                                    name: 'age',
+                                    id: 'age-simple',
                                 }}
                             >
                                 <MenuItem value="">
@@ -63,35 +75,107 @@ class Filters extends React.Component {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={1}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="age-simple">Age</InputLabel>
+                            <InputLabel htmlFor="sex-simple">Sex</InputLabel>
                             <Select
-                                value={this.state.age}
+                                style={{width: 80}}
+                                value={this.state.sex}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                name: 'age',
-                                id: 'age-simple',
+                                    name: 'sex',
+                                    id: 'sex-simple',
+                                }}
+                            >
+                                <MenuItem value={'male'}>Male</MenuItem>
+                                <MenuItem value={'female'}>Female</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="tumor-simple">Tumor Diagnosis</InputLabel>
+                            <Select
+                                value={this.state.tumorDiagnosis}
+                                onChange={this.handleChange}
+                                inputProps={{
+                                    name: 'tumorDiagnosis',
+                                    id: 'tumor-simple',
                                 }}
                             >
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value={0}>0</MenuItem>
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={4}>4</MenuItem>
+                            </Select>
+                        </FormControl> 
+                    </Grid>
+                    <Grid item xs={1}>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="kps-simple">KPS</InputLabel>
+                            <Select
+                            style={{width: 80}}
+                                value={this.state.KPS}
+                                onChange={this.handleChange}
+                                inputProps={{
+                                    name: 'KPS',
+                                    id: 'kps-simple',
+                                }}
+                            >
+                                <MenuItem value="">
+                                <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={10}>10</MenuItem>
+                                <MenuItem value={20}>20</MenuItem>
+                                <MenuItem value={30}>30</MenuItem>
+                                <MenuItem value={40}>40</MenuItem>
+                                <MenuItem value={50}>50</MenuItem>
+                                <MenuItem value={60}>60</MenuItem>
+                                <MenuItem value={70}>70</MenuItem>
+                                <MenuItem value={80}>80</MenuItem>
+                                <MenuItem value={90}>90</MenuItem>
+                                <MenuItem value={100}>100</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={1}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="age-simple">Age</InputLabel>
+                            <InputLabel htmlFor="ecog-simple">ECOG</InputLabel>
                             <Select
-                                value={this.state.age}
+                                style={{width: 80}}
+                                value={this.state.ECOG}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                name: 'age',
-                                id: 'age-simple',
+                                    name: 'ECOG',
+                                    id: 'ecog-simple',
+                                }}
+                            >
+                                <MenuItem value="">
+                                <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={0}>0</MenuItem>
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={4}>4</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={2}>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="molecularMarkers-simple">Molecular Markers</InputLabel>
+                            <Select
+                                value={this.state.molecularMarkers}
+                                onChange={this.handleChange}
+                                inputProps={{
+                                    name: 'molecularMarkers',
+                                    id: 'molecularMarkers-simple',
                                 }}
                             >
                                 <MenuItem value="">
@@ -103,65 +187,65 @@ class Filters extends React.Component {
                             </Select>
                         </FormControl> 
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={2}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="age-simple">Age</InputLabel>
+                            <InputLabel htmlFor="primary-reccurrent-simple">Primary/Recurrent</InputLabel>
                             <Select
-                                value={this.state.age}
+                                value={this.state.primaryRecurrent}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                name: 'age',
-                                id: 'age-simple',
+                                    name: 'primaryRecurrent',
+                                    id: 'primary-reccurrent-simple',
                                 }}
                             >
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value={true}>Yes</MenuItem>
+                                <MenuItem value={false}>No</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={2}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="age-simple">Age</InputLabel>
+                            <InputLabel htmlFor="other-trials-simple">Enrolled in Other Trials</InputLabel>
                             <Select
-                                value={this.state.age}
+                                value={this.state.otherTrials}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                name: 'age',
-                                id: 'age-simple',
+                                    name: 'otherTrials',
+                                    id: 'other-trials-simple',
                                 }}
                             >
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value={true}>Yes</MenuItem>
+                                <MenuItem value={false}>No</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={2}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="age-simple">Age</InputLabel>
+                            <InputLabel htmlFor="ecog-simple">Other Comorbid Conditions</InputLabel>
                             <Select
-                                value={this.state.age}
+                                value={this.state.otherConditions}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                name: 'age',
-                                id: 'age-simple',
+                                    name: 'otherConditions',
+                                    id: 'ecog-simple',
                                 }}
                             >
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value={0}>0</MenuItem>
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={4}>4</MenuItem>
                             </Select>
-                        </FormControl> 
+                        </FormControl>
                     </Grid>
                 </Grid>
             </form>
