@@ -5,6 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
     root: {
@@ -42,6 +43,10 @@ class Filters extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
+    handleDelete = event => {
+        console.log(event);
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -49,16 +54,15 @@ class Filters extends React.Component {
             <form className={classes.root} autoComplete="off">
                 <Grid
                     container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
+                   // direction="row"
+                    //justify="center"
+                    // alignItems="left"
                 >
-                    <Grid item xs={2}></Grid>
-                    <Grid item xs={1}>
+                    <Grid item xs={1} alignContent="left">
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="age-simple">Age</InputLabel>
                             <Select
-                            style={{width: 80}}
+                                style={{width: 80}}
                                 value={this.state.age}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -96,6 +100,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="tumor-simple">Tumor Diagnosis</InputLabel>
                             <Select
+                                style={{width: 240}}
                                 value={this.state.tumorDiagnosis}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -118,7 +123,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="kps-simple">KPS</InputLabel>
                             <Select
-                            style={{width: 80}}
+                                style={{width: 80}}
                                 value={this.state.KPS}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -165,12 +170,11 @@ class Filters extends React.Component {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={2}></Grid>
-                    <Grid item xs={1}></Grid>
                     <Grid item xs={2}>
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="molecularMarkers-simple">Molecular Markers</InputLabel>
                             <Select
+                                style={{width: 240}}
                                 value={this.state.molecularMarkers}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -187,10 +191,13 @@ class Filters extends React.Component {
                             </Select>
                         </FormControl> 
                     </Grid>
+                    {/* <Grid item xs={3}></Grid>
+                    <Grid item xs={1}></Grid> */}
                     <Grid item xs={2}>
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="primary-reccurrent-simple">Primary/Recurrent</InputLabel>
                             <Select
+                                style={{width: 240}}
                                 value={this.state.primaryRecurrent}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -210,6 +217,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="other-trials-simple">Enrolled in Other Trials</InputLabel>
                             <Select
+                                style={{width: 240}}
                                 value={this.state.otherTrials}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -229,6 +237,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="ecog-simple">Other Comorbid Conditions</InputLabel>
                             <Select
+                                style={{width: 240}}
                                 value={this.state.otherConditions}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -246,6 +255,9 @@ class Filters extends React.Component {
                                 <MenuItem value={4}>4</MenuItem>
                             </Select>
                         </FormControl>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Chip onDelete={this.handleDelete} variant="outlined" />
                     </Grid>
                 </Grid>
             </form>
