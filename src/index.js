@@ -40,10 +40,10 @@ ReactDOM.render(
                         padding={12}
                         style={{paddingTop: 20}}
                     >   
-                <Grid item xs={10}></Grid>
+                {/* <Grid item xs={10}></Grid>
                     <Grid item xs={2}>
                         <Search />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
                 </CardContent>
             </Card>

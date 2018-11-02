@@ -18,6 +18,7 @@ class Search extends Component {
                   variant="contained" 
                   color="primary"
                   onClick={this.executeSearch}
+                  size="large"
                 >
                   Search
                 </Button>

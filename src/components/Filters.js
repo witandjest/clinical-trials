@@ -6,6 +6,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
+import TextField from '@material-ui/core/TextField';
+
+import ConditionList from "./ConditionList";
+import Search from "./Search";
+
 
 const styles = theme => ({
     root: {
@@ -60,23 +65,16 @@ class Filters extends React.Component {
                 >
                     <Grid item xs={1} alignContent="left">
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="age-simple">Age</InputLabel>
-                            <Select
-                                style={{width: 80}}
+                            {/* <InputLabel htmlFor="age-simple">Age</InputLabel> */}
+                            <TextField
+                                style={{width:80}}
+                                id="age-simple"
+                                name="age"
+                                label="Age"
+                                className={classes.textField}
                                 value={this.state.age}
                                 onChange={this.handleChange}
-                                inputProps={{
-                                    name: 'age',
-                                    id: 'age-simple',
-                                }}
-                            >
-                                <MenuItem value="">
-                                <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                            />
                         </FormControl>
                     </Grid>
                     <Grid item xs={1}>
@@ -185,9 +183,15 @@ class Filters extends React.Component {
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value={10}>Giloma - Grade I</MenuItem>
+                                <MenuItem value={20}>Giloma - Grade II</MenuItem>
+                                <MenuItem value={30}>Giloma - Grade III</MenuItem>
+                                <MenuItem value={40}>Giloma - Grade IV</MenuItem>
+                                <MenuItem value={50}>Meningioma</MenuItem>
+                                <MenuItem value={60}>Brain metastases</MenuItem>
+                                <MenuItem value={70}>Schwannoma</MenuItem>
+                                <MenuItem value={20}>Neurofibroma</MenuItem>
+                                <MenuItem value={30}>Malignant peripheral nerve sheath tumor</MenuItem>
                             </Select>
                         </FormControl> 
                     </Grid>
@@ -233,31 +237,13 @@ class Filters extends React.Component {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={2}>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="ecog-simple">Other Comorbid Conditions</InputLabel>
-                            <Select
-                                style={{width: 240}}
-                                value={this.state.otherConditions}
-                                onChange={this.handleChange}
-                                inputProps={{
-                                    name: 'otherConditions',
-                                    id: 'ecog-simple',
-                                }}
-                            >
-                                <MenuItem value="">
-                                <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={0}>0</MenuItem>
-                                <MenuItem value={1}>1</MenuItem>
-                                <MenuItem value={2}>2</MenuItem>
-                                <MenuItem value={3}>3</MenuItem>
-                                <MenuItem value={4}>4</MenuItem>
-                            </Select>
-                        </FormControl>
+                    <Grid item xs={4} style={{paddingTop: 20}}>
+                        <ConditionList />
+                        {/* <Chip onDelete={this.handleDelete} variant="outlined" /> */}
                     </Grid>
-                    <Grid item xs={4}>
-                        <Chip onDelete={this.handleDelete} variant="outlined" />
+                    <Grid item xs={6}></Grid>
+                    <Grid item xs={2} style={{paddingTop: 40, paddingLeft: 60}}>
+                        <Search />
                     </Grid>
                 </Grid>
             </form>
