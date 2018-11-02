@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import TableHead from '@material-ui/core/TableHead';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
@@ -94,9 +95,9 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: tru
 );
 
 let counter = 0;
-function createData(name, calories, fat) {
+function createData(name, criteria, link) {
   counter += 1;
-  return { id: counter, name, calories, fat };
+  return { id: counter, name, criteria, link};
 }
 
 const styles = theme => ({
@@ -115,20 +116,20 @@ const styles = theme => ({
 class CustomPaginationActionsTable extends React.Component {
   state = {
     rows: [
-      createData('Cupcake', 305, 3.7),
-      createData('Donut', 452, 25.0),
-      createData('Eclair', 262, 16.0),
-      createData('Frozen yoghurt', 159, 6.0),
-      createData('Gingerbread', 356, 16.0),
-      createData('Honeycomb', 408, 3.2),
-      createData('Ice cream sandwich', 237, 9.0),
-      createData('Jelly Bean', 375, 0.0),
-      createData('KitKat', 518, 26.0),
-      createData('Lollipop', 392, 0.2),
-      createData('Marshmallow', 318, 0),
-      createData('Nougat', 360, 19.0),
-      createData('Oreo', 437, 18.0),
-    ].sort((a, b) => (a.calories < b.calories ? -1 : 1)),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 305, 123),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 452, 124),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 262, 125),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 159, 126),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 356, 127),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 408, 128),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 237, 129),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 375, 130),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 518, 131),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 392, 132),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 318, 133),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 360, 134),
+      createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 437, 135),
+    ],
     page: 0,
     rowsPerPage: 10,
   };
@@ -150,6 +151,13 @@ class CustomPaginationActionsTable extends React.Component {
       <Paper className={classes.root}>
         <div className={classes.tableWrapper}>
           <Table className={classes.table}>
+            <TableHead>
+                <TableRow>
+                    <TableCell>Trial Name</TableCell>
+                    <TableCell>Criteria</TableCell>
+                    <TableCell>Link to Trial</TableCell>
+                </TableRow>
+            </TableHead>
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                 return (
@@ -157,8 +165,8 @@ class CustomPaginationActionsTable extends React.Component {
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell numeric>{row.calories}</TableCell>
-                    <TableCell numeric>{row.fat}</TableCell>
+                    <TableCell><a href='#'>Show Criteria</a></TableCell>
+                    <TableCell><a href='#'>loremipsum.linktotrial.dummy/{row.link}</a></TableCell>
                   </TableRow>
                 );
               })}
