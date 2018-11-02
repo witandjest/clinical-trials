@@ -22,7 +22,7 @@ ReactDOM.render(
             <Grid item xs={1}></Grid>
             <Grid item xs={10}>
             <h3 style={{fontFamily: 'Roboto'}}>Patient Information</h3>
-            <Card>
+            <Card style={{overflow: 'visible'}}>
                 <CardContent>
                     <Grid
                         container

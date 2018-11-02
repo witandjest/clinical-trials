@@ -98,7 +98,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="tumor-simple">Tumor Diagnosis</InputLabel>
                             <Select
-                                style={{width: 240}}
+                                style={{width: 180}}
                                 value={this.state.tumorDiagnosis}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -172,7 +172,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="molecularMarkers-simple">Molecular Markers</InputLabel>
                             <Select
-                                style={{width: 240}}
+                                style={{width: 180}}
                                 value={this.state.molecularMarkers}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -201,7 +201,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="primary-reccurrent-simple">Primary/Recurrent</InputLabel>
                             <Select
-                                style={{width: 240}}
+                                style={{width: 180}}
                                 value={this.state.primaryRecurrent}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -221,7 +221,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="other-trials-simple">Enrolled in Other Trials</InputLabel>
                             <Select
-                                style={{width: 240}}
+                                style={{width: 190}}
                                 value={this.state.otherTrials}
                                 onChange={this.handleChange}
                                 inputProps={{
