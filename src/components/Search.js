@@ -3,11 +3,13 @@ import Button from '@material-ui/core/Button';
 //import { processAndQuery } from '../integration/queries'
 
 import '../styles/Search.css';
+import { testGet } from '../repository'
 
 class Search extends Component {
 
     executeSearch () {
         console.log('Search');
+        testGet();
        // processAndQuery();
     }
 

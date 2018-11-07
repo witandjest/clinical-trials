@@ -15,19 +15,28 @@ function buildQuery ( params ) {
     return query;
 }
 
-function executeQuery ( query ) {
+function executeQuery ( query, then ) {
     let queryResults = false
 
-    DB.query(query, (err, results) => {
+    console.log('-- Executing Query --');
+    console.log('Query: ' + query);
+
+    return DB.query(query, (err, results) => {
         if (err) console.log(err);
+
+        console.log(results);
 
         //console.log(err ? err : results);
         queryResults = results;    
+
+        then(results);
+        // return results;
     })
 
-    console.log(queryResults);
+    // console.log('Results:');
+    // console.log(queryResults);
 
-    return queryResults;
+    // return queryResults;
 }
 
 // todo: export into separate file and process there
@@ -40,9 +49,9 @@ function processAndQuery ( params ) {
     console.log(results);
 }
 
-executeQuery('  ');
+// executeQuery('  ');
 
-module.exports = { processAndQuery }
+module.exports = { executeQuery, processAndQuery }
 
 
 
