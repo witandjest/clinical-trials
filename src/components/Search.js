@@ -3,13 +3,12 @@ import Button from '@material-ui/core/Button';
 //import { processAndQuery } from '../integration/queries'
 
 import '../styles/Search.css';
-import { testGet } from '../repository'
 
 class Search extends Component {
 
     executeSearch () {
         console.log('Search');
-        testGet();
+        // testGet();
        // processAndQuery();
     }
 
@@ -19,7 +18,7 @@ class Search extends Component {
                 <Button 
                   variant="contained" 
                   color="primary"
-                  onClick={this.executeSearch}
+                  onClick={this.props.executeSearch}
                   size="large"
                 >
                   Search

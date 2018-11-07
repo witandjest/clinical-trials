@@ -43,9 +43,8 @@ class Filters extends React.Component {
     };
 
     handleChange = event => {
-        console.log(event.target.name);
-        console.log(event.target.value);
-        this.setState({ [event.target.name]: event.target.value });
+        // this.setState({ [event.target.name]: event.target.value });
+        this.props.updateFilter(event);
     };
 
     handleDelete = event => {
@@ -53,7 +52,7 @@ class Filters extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, filters } = this.props;
 
         return (
             <form className={classes.root} autoComplete="off">
@@ -72,7 +71,7 @@ class Filters extends React.Component {
                                 name="age"
                                 label="Age"
                                 className={classes.textField}
-                                value={this.state.age}
+                                value={filters.age}
                                 onChange={this.handleChange}
                             />
                         </FormControl>
@@ -82,7 +81,7 @@ class Filters extends React.Component {
                             <InputLabel htmlFor="sex-simple">Sex</InputLabel>
                             <Select
                                 style={{width: 80}}
-                                value={this.state.sex}
+                                value={filters.sex}
                                 onChange={this.handleChange}
                                 inputProps={{
                                     name: 'sex',
@@ -99,7 +98,7 @@ class Filters extends React.Component {
                             <InputLabel htmlFor="tumor-simple">Tumor Diagnosis</InputLabel>
                             <Select
                                 style={{width: 180}}
-                                value={this.state.tumorDiagnosis}
+                                value={filters.tumorDiagnosis}
                                 onChange={this.handleChange}
                                 inputProps={{
                                     name: 'tumorDiagnosis',
@@ -122,7 +121,7 @@ class Filters extends React.Component {
                             <InputLabel htmlFor="kps-simple">KPS</InputLabel>
                             <Select
                                 style={{width: 80}}
-                                value={this.state.KPS}
+                                value={filters.KPS}
                                 onChange={this.handleChange}
                                 inputProps={{
                                     name: 'KPS',
@@ -150,7 +149,7 @@ class Filters extends React.Component {
                             <InputLabel htmlFor="ecog-simple">ECOG</InputLabel>
                             <Select
                                 style={{width: 80}}
-                                value={this.state.ECOG}
+                                value={filters.ECOG}
                                 onChange={this.handleChange}
                                 inputProps={{
                                     name: 'ECOG',
@@ -173,7 +172,7 @@ class Filters extends React.Component {
                             <InputLabel htmlFor="molecularMarkers-simple">Molecular Markers</InputLabel>
                             <Select
                                 style={{width: 180}}
-                                value={this.state.molecularMarkers}
+                                value={filters.molecularMarkers}
                                 onChange={this.handleChange}
                                 inputProps={{
                                     name: 'molecularMarkers',
@@ -202,7 +201,7 @@ class Filters extends React.Component {
                             <InputLabel htmlFor="primary-reccurrent-simple">Primary/Recurrent</InputLabel>
                             <Select
                                 style={{width: 180}}
-                                value={this.state.primaryRecurrent}
+                                value={filters.primaryRecurrent}
                                 onChange={this.handleChange}
                                 inputProps={{
                                     name: 'primaryRecurrent',
@@ -222,7 +221,7 @@ class Filters extends React.Component {
                             <InputLabel htmlFor="other-trials-simple">Enrolled in Other Trials</InputLabel>
                             <Select
                                 style={{width: 190}}
-                                value={this.state.otherTrials}
+                                value={filters.otherTrials}
                                 onChange={this.handleChange}
                                 inputProps={{
                                     name: 'otherTrials',
@@ -243,7 +242,9 @@ class Filters extends React.Component {
                     </Grid>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={2} style={{paddingTop: 40, paddingLeft: 60}}>
-                        <Search />
+                        <Search 
+                            executeSearch={this.props.executeSearch}
+                        />
                     </Grid>
                 </Grid>
             </form>

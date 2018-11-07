@@ -6,14 +6,24 @@ const DB = require("./queryDB.js");
 
     */
 function buildQuery ( params ) {
-    let query = '';
-    
-    if (params.age) {
+    console.log(params);
 
+    let query = '';
+
+    if (params.age) {
+        console.log('age2');
+    }
+
+    if (params.sex) {
+        
     }
 
     return query;
 }
+
+
+
+
 
 function executeQuery ( query, then ) {
     let queryResults = false
@@ -43,6 +53,10 @@ function executeQuery ( query, then ) {
 // module.exports = { buildQuery, executeQuery }
 
 function processAndQuery ( params ) {
+    console.log('woo');
+    console.log(params);
+    return false;
+
     const query = buildQuery(params);
     const results = executeQuery(query);
 
@@ -51,7 +65,7 @@ function processAndQuery ( params ) {
 
 // executeQuery('  ');
 
-module.exports = { executeQuery, processAndQuery }
+module.exports = { buildQuery, executeQuery, processAndQuery }
 
 
 

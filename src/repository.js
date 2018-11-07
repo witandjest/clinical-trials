@@ -1,11 +1,11 @@
 
-import axios from 'axios';
+import axios from 'axios'; 
 
-export function testGet() {
-    axios.get('/user', {
-        params: {
-          ID: 12345
-        }
+export function getTrials( params ) {
+    console.log('client - getTrials()');
+    console.log(params);
+    axios.get('/trials', {
+        params
       })
       .then(function (response) {
           console.log('success');

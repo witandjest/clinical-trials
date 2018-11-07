@@ -143,8 +143,8 @@ class CustomPaginationActionsTable extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const { rows, rowsPerPage, page } = this.state;
+    const { classes, rows } = this.props;
+    const { rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return (
