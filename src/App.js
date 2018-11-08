@@ -46,7 +46,8 @@ class App extends Component {
             otherConditions: '',
             name: 't',
             labelWidth: 0
-        }
+        },
+        loading: false
     };
 
     updateState = event => {
@@ -56,6 +57,9 @@ class App extends Component {
     };
 
     executeSearch = () => {
+        this.setState({
+            loading: true
+        });
         getTrials(this.state.filters)
             .then(results => {
                 console.log('in the component;')
@@ -63,7 +67,8 @@ class App extends Component {
 
                 this.setState(state => ({
                     ...state,
-                    results
+                    results,
+                    loading: false
                 }));
 
                 // process results
@@ -71,7 +76,12 @@ class App extends Component {
 
                 // on error, we don't need to do anything as state won't get overwritten 
              })
-             .catch(error => console.log(error));
+             .catch(error => {
+                 console.log(error);
+                 this.setState({
+                     loading: false
+                 });
+             });
     }
 
     render() {
@@ -103,6 +113,7 @@ class App extends Component {
                                 filters={this.state.filters}
                                 updateFilter={this.updateState}
                                 executeSearch={this.executeSearch}
+                                loading={this.state.loading}
                             />
                             <Grid
                                 container
@@ -128,9 +139,13 @@ class App extends Component {
                         <h3 style={{fontFamily: 'Roboto'}}>Search Results</h3>
                         <Results 
                             rows={this.state.results}
+                            loading={this.state.loading}
                         />
                     </Grid>
                 </Grid>
+                <div style={{margin: 'auto', width: 'fit-content', padding: 30, fontFamily: 'Roboto'}}>
+                    All data has been sourced from the AACT presented by the Clinical Trials Transformation Initiative. Accessible by link here: <a href="http://www.ctti-clinicaltrials.org">http://www.ctti-clinicaltrials.org</a>.
+                </div>
             </div>
         );
     }

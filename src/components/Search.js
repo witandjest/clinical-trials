@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from '@material-ui/core/Button';
+import { CircularProgress, Typography } from '@material-ui/core';
 //import { processAndQuery } from '../integration/queries'
 
 import '../styles/Search.css';
@@ -13,15 +14,20 @@ class Search extends Component {
     }
 
     render() {
+        const { executeSearch, loading } = this.props;
+
         return (
             <div>
                 <Button 
                   variant="contained" 
                   color="primary"
-                  onClick={this.props.executeSearch}
+                  onClick={executeSearch}
                   size="large"
+                  disabled={loading}
                 >
-                  Search
+                 {loading ?
+                    <CircularProgress size={14} /> :
+                    <span>Search</span>}
                 </Button>
             </div>
         );

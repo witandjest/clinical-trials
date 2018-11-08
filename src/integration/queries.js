@@ -6,19 +6,39 @@ const DB = require("./queryDB.js");
 
     */
 function buildQuery ( params ) {
+
+    searchTerms = [];
+    searchTerms = params.tumorDiagnosis ? searchTerms.concat(params.tumorDiagnosis) : searchTerms;
+    searchTerms = params.molecularMarkers ? searchTerms.concat(params.molecularMarkers) : searchTerms;
+    searchTerms = params.otherConditions ? searchTerms.concat(params.otherConditions) : searchTerms;
+
     console.log(params);
 
-    let query = 'SELECT * FROM eligibilities WHERE';
+    let query = 'SELECT * FROM eligibilities WHERE ';
 
     if (params.age) {
         console.log('age2');
+        // query += ' AND ';
     }
 
     if (params.sex) {
-        query += " gender IN ('All', '" + params.sex + "') "
+        query += "gender IN ('All', '" + params.sex + "') "
+        query += "AND ";
     }
 
-    query += ' LIMIT 25';
+    if (searchTerms.length > 0) {
+        // query += ' AND ';
+        query += "regexp_replace(LOWER(SPLIT_PART(LOWER(criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(" + searchTerms.join('|') + ")%' ";
+    
+        query += "AND regexp_replace(LOWER(SPLIT_PART(LOWER(criteria), LOWER('Exclusion Criteria'), '2')), '\s+', ' ', 'g') NOT SIMILAR TO '%(" + searchTerms.join('|') + ")%' ";
+        query += "AND ";
+    }
+
+    if ( query.substr(-4).indexOf('AND') !== -1 ) {
+        query = query.substr(0, query.length - 4);
+    }
+
+    query += 'LIMIT 25';
 
     return query;
 }

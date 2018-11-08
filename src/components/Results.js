@@ -15,6 +15,8 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 
+import { CircularProgress } from '@material-ui/core';
+
 const actionsStyles = theme => ({
   root: {
     flexShrink: 0,
@@ -128,54 +130,62 @@ class CustomPaginationActionsTable extends React.Component {
   };
 
   render() {
-    const { classes, rows } = this.props;
+    const { classes, rows, loading } = this.props;
     const { rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
-        <div className={classes.tableWrapper}>
-          <Table className={classes.table}>
-            <TableHead>
-                <TableRow>
-                    <TableCell>Trial Name</TableCell>
-                    <TableCell>Criteria</TableCell>
-                    <TableCell>Link to Trial</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
-                return (
-                  <TableRow key={row.id}>
-                    <TableCell component="th" scope="row">
-                      {row.name || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '}
-                    </TableCell>
-                    <TableCell><a href='#'>Show Criteria</a></TableCell>
-                    <TableCell><a href='#'>{row.link}</a></TableCell>
+        {
+          loading ? (
+            <div style={{margin: 'auto', width: 'fit-content', padding: 70}}>
+              <CircularProgress size={50} />
+            </div>
+          ) : (
+            <div className={classes.tableWrapper}>
+              <Table className={classes.table}>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Trial Name</TableCell>
+                        <TableCell>Criteria</TableCell>
+                        <TableCell>Link to Trial</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                    return (
+                      <TableRow key={row.id}>
+                        <TableCell component="th" scope="row">
+                          {row.name || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '}
+                        </TableCell>
+                        <TableCell><a href='#'>Show Criteria</a></TableCell>
+                        <TableCell><a href='#'>{row.link}</a></TableCell>
+                      </TableRow>
+                    );
+                  })}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 48 * emptyRows }}>
+                      <TableCell colSpan={6} />
+                    </TableRow>
+                  )}
+                </TableBody>
+                <TableFooter>
+                  <TableRow>
+                    <TablePagination
+                      colSpan={3}
+                      count={rows.length}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onChangePage={this.handleChangePage}
+                      onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                      ActionsComponent={TablePaginationActionsWrapped}
+                    />
                   </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 48 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  colSpan={3}
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={this.handleChangePage}
-                  onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActionsWrapped}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </div>
+                </TableFooter>
+              </Table>
+            </div>
+          )
+        }
       </Paper>
     );
   }

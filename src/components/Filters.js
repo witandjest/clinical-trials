@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 
+import ListSubheader from '@material-ui/core';
+
 import ConditionList from "./ConditionList";
 import Search from "./Search";
 
@@ -52,7 +54,7 @@ class Filters extends React.Component {
     }
 
     render() {
-        const { classes, filters } = this.props;
+        const { classes, filters, executeSearch, loading } = this.props;
 
         return (
             <form className={classes.root} autoComplete="off">
@@ -108,11 +110,16 @@ class Filters extends React.Component {
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={0}>0</MenuItem>
-                                <MenuItem value={1}>1</MenuItem>
-                                <MenuItem value={2}>2</MenuItem>
-                                <MenuItem value={3}>3</MenuItem>
-                                <MenuItem value={4}>4</MenuItem>
+                                <ListSubheader>testing 123</ListSubheader>
+                                <MenuItem value={10}>Giloma - Grade I</MenuItem>
+                                <MenuItem value={20}>Giloma - Grade II</MenuItem>
+                                <MenuItem value={30}>Giloma - Grade III</MenuItem>
+                                <MenuItem value={40}>Giloma - Grade IV</MenuItem>
+                                <MenuItem value={50}>Meningioma</MenuItem>
+                                <MenuItem value={60}>Brain metastases</MenuItem>
+                                <MenuItem value={70}>Schwannoma</MenuItem>
+                                <MenuItem value={20}>Neurofibroma</MenuItem>
+                                <MenuItem value={30}>Malignant peripheral nerve sheath tumor</MenuItem>
                             </Select>
                         </FormControl> 
                     </Grid>
@@ -182,10 +189,10 @@ class Filters extends React.Component {
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={10}>Giloma - Grade I</MenuItem>
-                                <MenuItem value={20}>Giloma - Grade II</MenuItem>
-                                <MenuItem value={30}>Giloma - Grade III</MenuItem>
-                                <MenuItem value={40}>Giloma - Grade IV</MenuItem>
+                                <MenuItem value={10}>BRAF+</MenuItem>
+                                <MenuItem value={20}>BRAF-</MenuItem>
+                                <MenuItem value={30}>MGMT methylation +</MenuItem>
+                                <MenuItem value={40}>MGMT methylation -</MenuItem>
                                 <MenuItem value={50}>Meningioma</MenuItem>
                                 <MenuItem value={60}>Brain metastases</MenuItem>
                                 <MenuItem value={70}>Schwannoma</MenuItem>
@@ -243,7 +250,8 @@ class Filters extends React.Component {
                     <Grid item xs={6}></Grid>
                     <Grid item xs={2} style={{paddingTop: 40, paddingLeft: 60}}>
                         <Search 
-                            executeSearch={this.props.executeSearch}
+                            executeSearch={executeSearch}
+                            loading={loading}
                         />
                     </Grid>
                 </Grid>
