@@ -1,0 +1,20 @@
+       Column       |       Type        | Collation | Nullable |                  Default
+--------------------+-------------------+-----------+----------+-------------------------------------------
+ id                 | integer           |           | not null | nextval('eligibilities_id_seq'::regclass)
+ nct_id             | character varying |           |          |
+ sampling_method    | character varying |           |          |
+ gender             | character varying |           |          |
+ minimum_age        | character varying |           |          |
+ maximum_age        | character varying |           |          |
+ healthy_volunteers | character varying |           |          |
+ population         | text              |           |          |
+ criteria           | text              |           |          |
+ gender_description | text              |           |          |
+ gender_based       | boolean           |           |          |
+Indexes:
+    "eligibilities_pkey" PRIMARY KEY, btree (id)
+    "index_eligibilities_on_gender" btree (gender)
+    "index_eligibilities_on_healthy_volunteers" btree (healthy_volunteers)
+    "index_eligibilities_on_maximum_age" btree (maximum_age)
+    "index_eligibilities_on_minimum_age" btree (minimum_age)
+    "index_eligibilities_on_nct_id" btree (nct_id)

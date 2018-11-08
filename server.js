@@ -34,9 +34,9 @@ app.get('/trials', function (req, res) {
 
     console.log(query);
 
-    db.one('select count(*) from studies;', 123)
+    db.many(query, 123)
     .then(function (data) {
-        console.log('DATA:', data)
+        cleanData(data);
         res.send(data);
     })
     .catch(function (error) {
@@ -47,3 +47,16 @@ app.get('/trials', function (req, res) {
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })
+
+function cleanData ( data ) {
+    for (const key of Object.keys(data)) {
+        let cleanedData = {};
+
+        cleanedData['link'] = 'https://www.clinicaltrials.gov/ct2/show/' + data[key]['nct_id'];
+        cleanedData['criteria'] = data[key]['criteria'];
+
+        data[key] = cleanedData;
+    }
+
+    return data;
+}

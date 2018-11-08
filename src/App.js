@@ -13,7 +13,7 @@ import { getTrials } from './repository'
 let counter = 0;
 function createData(name, criteria, link) {
   counter += 1;
-  return { id: counter, name, criteria, link};
+  return { id: counter, name, criteria, link: 'dummylink.trial/' + link};
 } 
 
 class App extends Component {
@@ -56,7 +56,22 @@ class App extends Component {
     };
 
     executeSearch = () => {
-        getTrials(this.state.filters);
+        getTrials(this.state.filters)
+            .then(results => {
+                console.log('in the component;')
+                console.log(results);
+
+                this.setState(state => ({
+                    ...state,
+                    results
+                }));
+
+                // process results
+                // store in state
+
+                // on error, we don't need to do anything as state won't get overwritten 
+             })
+             .catch(error => console.log(error));
     }
 
     render() {

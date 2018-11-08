@@ -8,15 +8,17 @@ const DB = require("./queryDB.js");
 function buildQuery ( params ) {
     console.log(params);
 
-    let query = '';
+    let query = 'SELECT * FROM eligibilities WHERE';
 
     if (params.age) {
         console.log('age2');
     }
 
     if (params.sex) {
-        
+        query += " gender IN ('All', '" + params.sex + "') "
     }
+
+    query += ' LIMIT 25';
 
     return query;
 }
