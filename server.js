@@ -40,7 +40,8 @@ app.get('/trials', function (req, res) {
         res.send(data);
     })
     .catch(function (error) {
-        console.log('ERROR:', error)
+        console.log('ERROR:', error);
+        throw error;
     })
 })
 

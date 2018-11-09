@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 
-import ListSubheader from '@material-ui/core';
+import { List, ListSubheader } from '@material-ui/core';
 
 import ConditionList from "./ConditionList";
 import Search from "./Search";
@@ -98,19 +98,16 @@ class Filters extends React.Component {
                                     id: 'tumor-simple',
                                 }}
                             >
-                                <MenuItem value="">
-                                <em>None</em>
-                                </MenuItem>
-                                <ListSubheader>testing 123</ListSubheader>
-                                <MenuItem value={10}>Giloma - Grade I</MenuItem>
-                                <MenuItem value={20}>Giloma - Grade II</MenuItem>
-                                <MenuItem value={30}>Giloma - Grade III</MenuItem>
-                                <MenuItem value={40}>Giloma - Grade IV</MenuItem>
-                                <MenuItem value={50}>Meningioma</MenuItem>
-                                <MenuItem value={60}>Brain metastases</MenuItem>
-                                <MenuItem value={70}>Schwannoma</MenuItem>
-                                <MenuItem value={20}>Neurofibroma</MenuItem>
-                                <MenuItem value={30}>Malignant peripheral nerve sheath tumor</MenuItem>
+                            <MenuItem value=""><em>None</em></MenuItem>
+                            <MenuItem value={'giloma - grade i'}>Giloma - Grade I</MenuItem>
+                            <MenuItem value={'giloma - grade ii'}>Giloma - Grade II</MenuItem>
+                            <MenuItem value={'giloma - grade iii'}>Giloma - Grade III</MenuItem>
+                            <MenuItem value={'giloma - grade iv'}>Giloma - Grade IV</MenuItem>
+                            <MenuItem value={'meningioma'}>Meningioma</MenuItem>
+                            <MenuItem value={'brain metastases'}>Brain metastases</MenuItem>
+                            <MenuItem value={'schwannoma'}>Schwannoma</MenuItem>
+                            <MenuItem value={'neurofibroma'}>Neurofibroma</MenuItem>
+                            <MenuItem value={'malignant peripheral nerve sheath tumor'}>Malignant peripheral nerve sheath tumor</MenuItem>
                             </Select>
                         </FormControl> 
                     </Grid>
@@ -177,23 +174,22 @@ class Filters extends React.Component {
                                     id: 'molecularMarkers-simple',
                                 }}
                             >
-                                <MenuItem value="">
-                                <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>BRAF+</MenuItem>
-                                <MenuItem value={20}>BRAF-</MenuItem>
-                                <MenuItem value={30}>MGMT methylation +</MenuItem>
-                                <MenuItem value={40}>MGMT methylation -</MenuItem>
-                                <MenuItem value={50}>Meningioma</MenuItem>
-                                <MenuItem value={60}>Brain metastases</MenuItem>
-                                <MenuItem value={70}>Schwannoma</MenuItem>
-                                <MenuItem value={20}>Neurofibroma</MenuItem>
-                                <MenuItem value={30}>Malignant peripheral nerve sheath tumor</MenuItem>
+                                <MenuItem value=""><em>None</em></MenuItem>
+                                <MenuItem value={'braf +'}>BRAF +</MenuItem>
+                                <MenuItem value={'braf -'}>BRAF -</MenuItem>
+                                <MenuItem value={'mgmt methylation +'}>MGMT methylation +</MenuItem>
+                                <MenuItem value={'mgmt methylation -'}>MGMT methylation -</MenuItem>
+                                <MenuItem value={'ras pathway mutation'}>RAS Pathway mutation</MenuItem>
+                                <MenuItem value={'raf pathway mutation'}>RAF Pathway mutation</MenuItem>
+                                <MenuItem value={'mek pathway mutation'}>MEK Pathway mutation</MenuItem>
+                                <MenuItem value={'erk pathway mutation'}>ERK Pathway mutation</MenuItem>
+                                <MenuItem value={'nras mutation'}>NRAS mutation</MenuItem>
+                                <MenuItem value={'kras mutation'}>KRAS mutation</MenuItem>
+                                <MenuItem value={'nf1 mutation'}>NF1 mutation</MenuItem>
+                                <MenuItem value={'nf2 mutation'}>NF2 mutation</MenuItem>
                             </Select>
                         </FormControl> 
                     </Grid>
-                    {/* <Grid item xs={3}></Grid>
-                    <Grid item xs={1}></Grid> */}
                     <Grid item xs={2}>
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="primary-reccurrent-simple">Primary/Recurrent</InputLabel>
