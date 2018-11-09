@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/witandjest/clinical-trials.git"
   },
+  "engines": {
+    "node": "8.x"
+  },
   "author": "witandjest",
   "license": "ISC",
   "bugs": {
