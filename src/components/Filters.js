@@ -56,10 +56,10 @@ class Filters extends React.Component {
                 <Grid
                     container
                 >
-                    <Grid item xs={1} alignContent="left">
+                    <Grid item xs={1}>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                style={{width:80}}
+                                style={{width:70}}
                                 id="age-simple"
                                 name="age"
                                 label="Age"
@@ -73,7 +73,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="sex-simple">Sex</InputLabel>
                             <Select
-                                style={{width: 80}}
+                                style={{width: 70}}
                                 value={filters.sex}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -90,7 +90,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="tumor-simple">Tumor Diagnosis</InputLabel>
                             <Select
-                                style={{width: 180}}
+                                style={{width: 170}}
                                 value={filters.tumorDiagnosis}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -115,7 +115,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="kps-simple">KPS</InputLabel>
                             <Select
-                                style={{width: 80}}
+                                style={{width: 70}}
                                 value={filters.KPS}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -143,7 +143,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="ecog-simple">ECOG</InputLabel>
                             <Select
-                                style={{width: 80}}
+                                style={{width: 70}}
                                 value={filters.ECOG}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -166,7 +166,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="molecularMarkers-simple">Molecular Markers</InputLabel>
                             <Select
-                                style={{width: 180}}
+                                style={{width: 170}}
                                 value={filters.molecularMarkers}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -194,7 +194,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="primary-reccurrent-simple">Primary/Recurrent</InputLabel>
                             <Select
-                                style={{width: 180}}
+                                style={{width: 165}}
                                 value={filters.primaryRecurrent}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -214,7 +214,7 @@ class Filters extends React.Component {
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="other-trials-simple">Enrolled in Other Trials</InputLabel>
                             <Select
-                                style={{width: 190}}
+                                style={{width: 185}}
                                 value={filters.otherTrials}
                                 onChange={this.handleChange}
                                 inputProps={{

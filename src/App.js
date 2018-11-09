@@ -19,21 +19,7 @@ function createData(name, criteria, link) {
 class App extends Component {
 
     state = {
-        results: [
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 305, 123),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 452, 124),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 262, 125),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 159, 126),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 356, 127),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 408, 128),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 237, 129),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 375, 130),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 518, 131),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 392, 132),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 318, 133),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 360, 134),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 437, 135),
-        ],
+        results: [],
         filters: {
             age: '',
             sex: '',
