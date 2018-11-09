@@ -159,7 +159,7 @@ class CustomPaginationActionsTable extends React.Component {
                           {row.name || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '}
                         </TableCell>
                         <TableCell><a href='#'>Show Criteria</a></TableCell>
-                        <TableCell><a href='#'>{row.link}</a></TableCell>
+                        <TableCell><a href={row.link}>{row.link}</a></TableCell>
                       </TableRow>
                     );
                   })}

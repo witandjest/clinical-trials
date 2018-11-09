@@ -16,9 +16,11 @@ function buildQuery ( params ) {
 
     let query = 'SELECT * FROM eligibilities WHERE ';
 
-    if (params.age) {
-        console.log('age2');
-        // query += ' AND ';
+    if (params.age) { // todo: fix bug here around ages being in months in some cases
+        query += "NOT NULLIF(regexp_replace(minimum_age, '\\D','','g'), '')::int > " + params.age + " ";
+        query += "AND ";
+        query += "NOT NULLIF(regexp_replace(maximum_age, '\\D','','g'), '')::int < " + params.age + " ";
+        query += "AND ";
     }
 
     if (params.sex) {

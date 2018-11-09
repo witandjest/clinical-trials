@@ -45,13 +45,8 @@ class Filters extends React.Component {
     };
 
     handleChange = event => {
-        // this.setState({ [event.target.name]: event.target.value });
         this.props.updateFilter(event);
     };
-
-    handleDelete = event => {
-        console.log(event);
-    }
 
     render() {
         const { classes, filters, executeSearch, loading } = this.props;
@@ -60,13 +55,9 @@ class Filters extends React.Component {
             <form className={classes.root} autoComplete="off">
                 <Grid
                     container
-                   // direction="row"
-                    //justify="center"
-                    // alignItems="left"
                 >
                     <Grid item xs={1} alignContent="left">
                         <FormControl className={classes.formControl}>
-                            {/* <InputLabel htmlFor="age-simple">Age</InputLabel> */}
                             <TextField
                                 style={{width:80}}
                                 id="age-simple"
@@ -245,7 +236,6 @@ class Filters extends React.Component {
                     </Grid>
                     <Grid item xs={4} style={{paddingTop: 20}}>
                         <ConditionList />
-                        {/* <Chip onDelete={this.handleDelete} variant="outlined" /> */}
                     </Grid>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={2} style={{paddingTop: 40, paddingLeft: 60}}>
