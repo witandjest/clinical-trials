@@ -173,7 +173,7 @@ class App extends Component {
                         />
                     </Grid>
                 </Grid>
-                <div style={{margin: 'auto', width: 'fit-content', padding: 30, fontFamily: 'Roboto'}}>
+                <div style={{margin: 'auto', width: 'fit-content', padding: 30, fontFamily: 'Roboto', color: '#aaaaaa'}}>
                     All data has been sourced from the AACT presented by the Clinical Trials Transformation Initiative. Accessible by link here: <a href="http://www.ctti-clinicaltrials.org">http://www.ctti-clinicaltrials.org</a>.
                 </div>
             </div>
