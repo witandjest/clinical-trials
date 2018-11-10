@@ -41,7 +41,7 @@ app.get('/trials', function (req, res) {
     })
     .catch(function (error) {
         console.log('ERROR:', error);
-        throw error;
+        res.send([]);
     })
 })
 
@@ -55,9 +55,14 @@ function cleanData ( data ) {
 
         cleanedData['link'] = 'https://www.clinicaltrials.gov/ct2/show/' + data[key]['nct_id'];
         cleanedData['criteria'] = data[key]['criteria'];
+        cleanedData['title'] = data[key]['title'];
 
         data[key] = cleanedData;
     }
 
     return data;
 }
+
+// function nl2br ( text ) {
+//     return text.replace("\r", "<br/>").replace("\n", "<br/>");
+// }

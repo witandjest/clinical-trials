@@ -8,6 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 
+import keycode from 'keycode';
+
 import { getTrials } from './repository'
 
 let counter = 0;
@@ -19,21 +21,7 @@ function createData(name, criteria, link) {
 class App extends Component {
 
     state = {
-        results: [
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 305, 123),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 452, 124),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 262, 125),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 159, 126),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 356, 127),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 408, 128),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 237, 129),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 375, 130),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 518, 131),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 392, 132),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 318, 133),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 360, 134),
-          createData('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ', 437, 135),
-        ],
+        results: [],
         filters: {
             age: '',
             sex: '',
@@ -47,7 +35,8 @@ class App extends Component {
             name: 't',
             labelWidth: 0
         },
-        loading: false
+        loading: false,
+        selectedItem: []
     };
 
     updateState = event => {
@@ -60,7 +49,10 @@ class App extends Component {
         this.setState({
             loading: true
         });
-        getTrials(this.state.filters)
+
+        let filterData = this.state.filters;
+        filterData['otherConditions'] = this.state.selectedItem;
+        getTrials(filterData)
             .then(results => {
                 console.log('in the component;')
                 console.log(results);
@@ -83,6 +75,40 @@ class App extends Component {
                  });
              });
     }
+
+    handleKeyDownMulti = ( event, inputValue ) => {
+        const { selectedItem } = this.state;
+        if (selectedItem.length && !inputValue.length && keycode(event) === 'backspace') {
+            this.setState({
+                selectedItem: selectedItem.slice(0, selectedItem.length - 1),
+            });
+        }
+    };
+    
+    handleChangeMulti = item => {
+        let { selectedItem } = this.state;
+    
+        if (selectedItem.indexOf(item) === -1) {
+            const filteredSelectedItems = selectedItem.filter(function (val) { 
+                return item.toLowerCase().indexOf(val.toLowerCase()) === -1; 
+            });
+            selectedItem = [...filteredSelectedItems, item];
+        }
+    
+        this.setState({
+          selectedItem,
+        });
+
+        console.log(this.state.selectedItem);
+    };
+    
+    handleDeleteMulti = item => () => {
+        this.setState(state => {
+          const selectedItem = [...state.selectedItem];
+          selectedItem.splice(selectedItem.indexOf(item), 1);
+          return { selectedItem };
+        });
+    };
 
     render() {
         return (
@@ -114,6 +140,10 @@ class App extends Component {
                                 updateFilter={this.updateState}
                                 executeSearch={this.executeSearch}
                                 loading={this.state.loading}
+                                selectedItem={this.state.selectedItem}
+                                handleKeyDownMulti={this.handleKeyDownMulti}
+                                handleChangeMulti={this.handleChangeMulti}
+                                handleDeleteMulti={this.handleDeleteMulti}
                             />
                             <Grid
                                 container

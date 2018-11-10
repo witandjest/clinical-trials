@@ -17,6 +17,8 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 
 import { CircularProgress } from '@material-ui/core';
 
+import SimplePopover from './SimplePopover';
+
 const actionsStyles = theme => ({
   root: {
     flexShrink: 0,
@@ -137,9 +139,9 @@ class CustomPaginationActionsTable extends React.Component {
     return (
       <Paper className={classes.root}>
         {
-          loading ? (
+          loading || rows.length === 0 ? (
             <div style={{margin: 'auto', width: 'fit-content', padding: 70}}>
-              <CircularProgress size={50} />
+              { loading ? <CircularProgress size={50} /> : <span style={{fontFamily: 'Roboto'}}>No results found.</span> }
             </div>
           ) : (
             <div className={classes.tableWrapper}>
@@ -155,10 +157,16 @@ class CustomPaginationActionsTable extends React.Component {
                   {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                     return (
                       <TableRow key={row.id}>
-                        <TableCell component="th" scope="row">
-                          {row.name || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '}
+                        <TableCell component="th" scope="row" style={{width: 600}}>
+                          {row.title || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '}
                         </TableCell>
-                        <TableCell><a href='#'>Show Criteria</a></TableCell>
+                        <TableCell style={{width: 200}}>
+                          <SimplePopover
+                            popoverContent={row.criteria}
+                          >
+                            Show Criteria
+                          </SimplePopover>
+                        </TableCell>
                         <TableCell><a href={row.link}>{row.link}</a></TableCell>
                       </TableRow>
                     );
