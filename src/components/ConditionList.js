@@ -83,17 +83,12 @@ function getSuggestions(value) {
 
 class DownshiftMultiple extends React.Component {
   state = {
-    inputValue: '',
-    selectedItem: [],
+    inputValue: ''
   };
 
   handleKeyDown = event => {
-    const { inputValue, selectedItem } = this.state;
-    if (selectedItem.length && !inputValue.length && keycode(event) === 'backspace') {
-      this.setState({
-        selectedItem: selectedItem.slice(0, selectedItem.length - 1),
-      });
-    }
+    const { inputValue } = this.state;
+    this.props.handleKeyDownMulti(event, inputValue);
   };
 
   handleInputChange = event => {
@@ -101,29 +96,15 @@ class DownshiftMultiple extends React.Component {
   };
 
   handleChange = item => {
-    let { selectedItem } = this.state;
-
-    if (selectedItem.indexOf(item) === -1) {
-      selectedItem = [...selectedItem, item];
-    }
-
     this.setState({
-      inputValue: '',
-      selectedItem,
+      inputValue: ''
     });
-  };
-
-  handleDelete = item => () => {
-    this.setState(state => {
-      const selectedItem = [...state.selectedItem];
-      selectedItem.splice(selectedItem.indexOf(item), 1);
-      return { selectedItem };
-    });
+    this.props.handleChangeMulti(item);
   };
 
   render() {
-    const { classes } = this.props;
-    const { inputValue, selectedItem } = this.state;
+    const { classes, selectedItem, handleDeleteMulti } = this.props;
+    const { inputValue } = this.state;
 
     return (
       <Downshift
@@ -151,7 +132,7 @@ class DownshiftMultiple extends React.Component {
                     tabIndex={-1}
                     label={item}
                     className={classes.chip}
-                    onDelete={this.handleDelete(item)}
+                    onDelete={handleDeleteMulti(item)}
                   />
                 )),
                 onChange: this.handleInputChange,
@@ -218,11 +199,17 @@ const styles = theme => ({
 let popperNode;
 
 function IntegrationDownshift(props) {
-  const { classes } = props;
+  const { classes, selectedItem, handleKeyDownMulti, handleChangeMulti, handleDeleteMulti } = props;
 
   return (
     <div style={{marginLeft: 5}} className={classes.root}>
-      <DownshiftMultiple classes={classes} />
+      <DownshiftMultiple 
+        classes={classes} 
+        selectedItem={selectedItem} 
+        handleKeyDownMulti={handleKeyDownMulti}
+        handleChangeMulti={handleChangeMulti}
+        handleDeleteMulti={handleDeleteMulti}
+      />
     </div>
   );
 }

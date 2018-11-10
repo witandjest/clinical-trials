@@ -49,7 +49,7 @@ class Filters extends React.Component {
     };
 
     render() {
-        const { classes, filters, executeSearch, loading } = this.props;
+        const { classes, filters, executeSearch, loading, selectedItem, handleKeyDownMulti, handleChangeMulti, handleDeleteMulti } = this.props;
 
         return (
             <form className={classes.root} autoComplete="off">
@@ -231,7 +231,12 @@ class Filters extends React.Component {
                         </FormControl>
                     </Grid>
                     <Grid item xs={4} style={{paddingTop: 20}}>
-                        <ConditionList />
+                        <ConditionList 
+                            selectedItem={selectedItem}
+                            handleKeyDownMulti={handleKeyDownMulti}
+                            handleChangeMulti={handleChangeMulti}
+                            handleDeleteMulti={handleDeleteMulti}
+                        />
                     </Grid>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={2} style={{paddingTop: 40, paddingLeft: 60}}>

@@ -12,6 +12,8 @@ function buildQuery ( params ) {
     searchTerms = params.molecularMarkers ? searchTerms.concat(params.molecularMarkers) : searchTerms;
     searchTerms = params.otherConditions ? searchTerms.concat(params.otherConditions) : searchTerms;
 
+    searchTerms = searchTerms.map(function (val) { return val.toLowerCase(); });
+
     console.log(params);
 
     let query = 'SELECT elig.nct_id, elig.criteria, stud.brief_title as title FROM eligibilities elig join studies stud on elig.nct_id = stud.nct_id WHERE ';

@@ -8,6 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 
+import keycode from 'keycode';
+
 import { getTrials } from './repository'
 
 let counter = 0;
@@ -33,7 +35,8 @@ class App extends Component {
             name: 't',
             labelWidth: 0
         },
-        loading: false
+        loading: false,
+        selectedItem: []
     };
 
     updateState = event => {
@@ -46,7 +49,10 @@ class App extends Component {
         this.setState({
             loading: true
         });
-        getTrials(this.state.filters)
+
+        let filterData = this.state.filters;
+        filterData['otherConditions'] = this.state.selectedItem;
+        getTrials(filterData)
             .then(results => {
                 console.log('in the component;')
                 console.log(results);
@@ -69,6 +75,37 @@ class App extends Component {
                  });
              });
     }
+
+    handleKeyDownMulti = ( event, inputValue ) => {
+        const { selectedItem } = this.state;
+        if (selectedItem.length && !inputValue.length && keycode(event) === 'backspace') {
+            this.setState({
+                selectedItem: selectedItem.slice(0, selectedItem.length - 1),
+            });
+        }
+    };
+    
+    handleChangeMulti = item => {
+        let { selectedItem } = this.state;
+    
+        if (selectedItem.indexOf(item) === -1) {
+          selectedItem = [...selectedItem, item];
+        }
+    
+        this.setState({
+          selectedItem,
+        });
+
+        console.log(this.state.selectedItem);
+    };
+    
+    handleDeleteMulti = item => () => {
+        this.setState(state => {
+          const selectedItem = [...state.selectedItem];
+          selectedItem.splice(selectedItem.indexOf(item), 1);
+          return { selectedItem };
+        });
+    };
 
     render() {
         return (
@@ -100,6 +137,10 @@ class App extends Component {
                                 updateFilter={this.updateState}
                                 executeSearch={this.executeSearch}
                                 loading={this.state.loading}
+                                selectedItem={this.state.selectedItem}
+                                handleKeyDownMulti={this.handleKeyDownMulti}
+                                handleChangeMulti={this.handleChangeMulti}
+                                handleDeleteMulti={this.handleDeleteMulti}
                             />
                             <Grid
                                 container
