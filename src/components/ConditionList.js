@@ -89,6 +89,10 @@ class DownshiftMultiple extends React.Component {
   handleKeyDown = event => {
     const { inputValue } = this.state;
     this.props.handleKeyDownMulti(event, inputValue);
+
+    if (inputValue.length && keycode(event) === 'enter') {
+      this.handleChange(inputValue);
+    }
   };
 
   handleInputChange = event => {

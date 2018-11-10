@@ -89,7 +89,10 @@ class App extends Component {
         let { selectedItem } = this.state;
     
         if (selectedItem.indexOf(item) === -1) {
-          selectedItem = [...selectedItem, item];
+            const filteredSelectedItems = selectedItem.filter(function (val) { 
+                return item.toLowerCase().indexOf(val.toLowerCase()) === -1; 
+            });
+            selectedItem = [...filteredSelectedItems, item];
         }
     
         this.setState({
