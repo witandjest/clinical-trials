@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 
-import { List, ListSubheader } from '@material-ui/core';
+import { List, ListSubheader, FormHelperText } from '@material-ui/core';
 
 import ConditionList from "./ConditionList";
 import Search from "./Search";
@@ -112,7 +112,7 @@ class Filters extends React.Component {
                         </FormControl> 
                     </Grid>
                     <Grid item xs={1}>
-                        <FormControl className={classes.formControl}>
+                        <FormControl className={classes.formControl} disabled>
                             <InputLabel htmlFor="kps-simple">KPS</InputLabel>
                             <Select
                                 style={{width: 70}}
@@ -137,10 +137,11 @@ class Filters extends React.Component {
                                 <MenuItem value={90}>90</MenuItem>
                                 <MenuItem value={100}>100</MenuItem>
                             </Select>
+                            <FormHelperText>Disabled</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item xs={1}>
-                        <FormControl className={classes.formControl}>
+                        <FormControl className={classes.formControl} disabled>
                             <InputLabel htmlFor="ecog-simple">ECOG</InputLabel>
                             <Select
                                 style={{width: 70}}
@@ -160,6 +161,7 @@ class Filters extends React.Component {
                                 <MenuItem value={3}>3</MenuItem>
                                 <MenuItem value={4}>4</MenuItem>
                             </Select>
+                            <FormHelperText>Disabled</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item xs={2}>
@@ -191,15 +193,16 @@ class Filters extends React.Component {
                         </FormControl> 
                     </Grid>
                     <Grid item xs={2}>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="primary-reccurrent-simple">Primary/Recurrent</InputLabel>
+                        <FormControl className={classes.formControl} disabled >
+                            <InputLabel htmlFor="primary-recurrent-simple">Primary/Recurrent</InputLabel>
                             <Select
+                                disabled={true}
                                 style={{width: 165}}
                                 value={filters.primaryRecurrent}
                                 onChange={this.handleChange}
                                 inputProps={{
                                     name: 'primaryRecurrent',
-                                    id: 'primary-reccurrent-simple',
+                                    id: 'primary-recurrent-simple',
                                 }}
                             >
                                 <MenuItem value="">
@@ -208,12 +211,14 @@ class Filters extends React.Component {
                                 <MenuItem value={true}>Yes</MenuItem>
                                 <MenuItem value={false}>No</MenuItem>
                             </Select>
+                            <FormHelperText>Disabled</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item xs={2}>
-                        <FormControl className={classes.formControl}>
+                        <FormControl className={classes.formControl} disabled > 
                             <InputLabel htmlFor="other-trials-simple">Enrolled in Other Trials</InputLabel>
                             <Select
+                                disabled={true}
                                 style={{width: 185}}
                                 value={filters.otherTrials}
                                 onChange={this.handleChange}
@@ -228,6 +233,7 @@ class Filters extends React.Component {
                                 <MenuItem value={true}>Yes</MenuItem>
                                 <MenuItem value={false}>No</MenuItem>
                             </Select>
+                            <FormHelperText>Disabled</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item xs={4} style={{paddingTop: 20}}>
