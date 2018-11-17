@@ -99,11 +99,10 @@ class Filters extends React.Component {
                                 }}
                             >
                             <MenuItem value=""><em>None</em></MenuItem>
-                            <MenuItem value={'glioma - grade i'}>Glioma - Grade I</MenuItem>
-                            <MenuItem value={'glioma - grade ii'}>Glioma - Grade II</MenuItem>
-                            <MenuItem value={'glioma - grade iii'}>Glioma - Grade III</MenuItem>
-                            <MenuItem value={'glioma - grade iv'}>Glioma - Grade IV</MenuItem>
-                            <MenuItem value={'glioma - grade iii/iv'}>Glioma - Grade III/IV</MenuItem>
+                            <MenuItem value={'giloma - grade i'}>Giloma - Grade I</MenuItem>
+                            <MenuItem value={'giloma - grade ii'}>Giloma - Grade II</MenuItem>
+                            <MenuItem value={'giloma - grade iii'}>Giloma - Grade III</MenuItem>
+                            <MenuItem value={'giloma - grade iv'}>Giloma - Grade IV</MenuItem>
                             <MenuItem value={'meningioma'}>Meningioma</MenuItem>
                             <MenuItem value={'brain metastases'}>Brain metastases</MenuItem>
                             <MenuItem value={'schwannoma'}>Schwannoma</MenuItem>
@@ -238,12 +237,12 @@ class Filters extends React.Component {
                         </FormControl>
                     </Grid>
                     <Grid item xs={4} style={{paddingTop: 20}}>
-                        <ConditionList 
+                        {/* <ConditionList 
                             selectedItem={selectedItem}
                             handleKeyDownMulti={handleKeyDownMulti}
                             handleChangeMulti={handleChangeMulti}
                             handleDeleteMulti={handleDeleteMulti}
-                        />
+                        /> */}
                     </Grid>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={2} style={{paddingTop: 40, paddingLeft: 60}}>
