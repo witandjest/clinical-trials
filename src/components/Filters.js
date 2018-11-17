@@ -141,7 +141,7 @@ class Filters extends React.Component {
                         </FormControl>
                     </Grid>
                     <Grid item xs={1}>
-                        <FormControl className={classes.formControl} disabled>
+                        <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="ecog-simple">ECOG</InputLabel>
                             <Select
                                 style={{width: 70}}
@@ -161,7 +161,7 @@ class Filters extends React.Component {
                                 <MenuItem value={3}>3</MenuItem>
                                 <MenuItem value={4}>4</MenuItem>
                             </Select>
-                            <FormHelperText>Disabled</FormHelperText>
+                            {/* <FormHelperText>Disabled</FormHelperText> */}
                         </FormControl>
                     </Grid>
                     <Grid item xs={2}>
