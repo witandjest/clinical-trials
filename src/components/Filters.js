@@ -176,18 +176,18 @@ class Filters extends React.Component {
                                 }}
                             >
                                 <MenuItem value=""><em>None</em></MenuItem>
-                                <MenuItem value={'braf +'}>BRAF +</MenuItem>
-                                <MenuItem value={'braf -'}>BRAF -</MenuItem>
-                                <MenuItem value={'mgmt methylation +'}>MGMT methylation +</MenuItem>
-                                <MenuItem value={'mgmt methylation -'}>MGMT methylation -</MenuItem>
-                                <MenuItem value={'ras pathway mutation'}>RAS Pathway mutation</MenuItem>
-                                <MenuItem value={'raf pathway mutation'}>RAF Pathway mutation</MenuItem>
-                                <MenuItem value={'mek pathway mutation'}>MEK Pathway mutation</MenuItem>
-                                <MenuItem value={'erk pathway mutation'}>ERK Pathway mutation</MenuItem>
-                                <MenuItem value={'nras mutation'}>NRAS mutation</MenuItem>
-                                <MenuItem value={'kras mutation'}>KRAS mutation</MenuItem>
-                                <MenuItem value={'nf1 mutation'}>NF1 mutation</MenuItem>
-                                <MenuItem value={'nf2 mutation'}>NF2 mutation</MenuItem>
+                                <MenuItem value={' braf'}>BRAF +</MenuItem>
+                                <MenuItem value={' braf'}>BRAF -</MenuItem>
+                                <MenuItem value={' mgmt'}>MGMT methylation +</MenuItem>
+                                <MenuItem value={' mgmt'}>MGMT methylation -</MenuItem>
+                                <MenuItem value={' ras'}>RAS Pathway mutation</MenuItem>
+                                <MenuItem value={' raf'}>RAF Pathway mutation</MenuItem>
+                                <MenuItem value={' mek'}>MEK Pathway mutation</MenuItem>
+                                <MenuItem value={' erk'}>ERK Pathway mutation</MenuItem>
+                                <MenuItem value={' nras'}>NRAS mutation</MenuItem>
+                                <MenuItem value={' kras'}>KRAS mutation</MenuItem>
+                                <MenuItem value={' nf1'}>NF1 mutation</MenuItem>
+                                <MenuItem value={' nf2'}>NF2 mutation</MenuItem>
                             </Select>
                         </FormControl> 
                     </Grid>

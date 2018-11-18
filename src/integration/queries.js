@@ -8,11 +8,13 @@ const DB = require("./queryDB.js");
 function buildQuery ( params ) {
 
     searchTerms = [];
-    searchTerms = params.tumorDiagnosis ? searchTerms.concat(params.tumorDiagnosis) : searchTerms;
+    // searchTerms = params.tumorDiagnosis ? searchTerms.concat(params.tumorDiagnosis) : searchTerms;
     searchTerms = params.molecularMarkers ? searchTerms.concat(params.molecularMarkers) : searchTerms;
-    searchTerms = params.otherConditions ? searchTerms.concat(params.otherConditions) : searchTerms;
+    // searchTerms = params.otherConditions ? searchTerms.concat(params.otherConditions) : searchTerms;
 
     searchTerms = searchTerms.map(function (val) { return val.toLowerCase(); });
+
+
 
     console.log(params);
 
@@ -41,21 +43,29 @@ function buildQuery ( params ) {
         query += "AND ";
     }
 
-    if (params.tumorDiagnosis.indexOf('glioma') != '-1') {
-        query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(glioma)%' ";
-        query += "AND ";
+    if (params.tumorDiagnosis) {
+        if (params.tumorDiagnosis.indexOf('glioma') != '-1') {
+            query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(glioma)%' ";
+            query += "AND ";
+    
+            const tumorGrade = params.tumorDiagnosis.split('grade')[1].trim();
+    
+            query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '% " + tumorGrade + " %' "; 
+            query += "AND ";
+        } else {
+            query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(" + params.tumorDiagnosis + ")%' ";
+            query += "AND ";
+        }
+    }
 
-        const tumorGrade = params.tumorDiagnosis.split('grade')[1].trim();
-
-        query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '% " + tumorGrade + " %' "; 
-        query += "AND ";
-    } else if (searchTerms.length > 0) {
+    if (searchTerms.length > 0) {
         // query += ' AND ';
         query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(" + searchTerms.join('|') + ")%' ";
     
         query += "AND regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '2')), '\s+', ' ', 'g') NOT SIMILAR TO '%(" + searchTerms.join('|') + ")%' ";
         query += "AND ";
     }
+    
 
     if ( query.substr(-4).indexOf('AND') !== -1 ) {
         query = query.substr(0, query.length - 4);
