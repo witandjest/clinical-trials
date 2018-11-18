@@ -30,9 +30,9 @@ app.get('/trials', function (req, res) {
         delete params.labelWidth;
     }
 
-    // const query = buildQuery(params);
+    const query = buildQuery(params);
 
-    let query = "select * from eligibilities where criteria like '%KPS%' and criteria like '%ECOG%' order by 1 desc limit 100;";
+    // let query = "select * from eligibilities where criteria like '%KPS%' and criteria like '%ECOG%' order by 1 desc limit 100;";
 
     console.log(query);
 
