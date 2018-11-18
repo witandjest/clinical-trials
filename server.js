@@ -175,9 +175,7 @@ function buildKPSStrings ( KPS ) {
     const KPSLowerPrefixes = ['>'];
     let KPSStrings = [];
 
-    console.log('uhhh');
     for (var i = 0; i < KPSOptions.length; i++) {
-        console.log('uhhhhhhhh');
         const KPSOption = KPSOptions[i];
         if (parseInt(KPSOption) <= parseInt(KPS)) {
             for (var j = 0; j < KPSPrefixes.length; j++) {

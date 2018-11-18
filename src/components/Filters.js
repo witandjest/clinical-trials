@@ -99,10 +99,10 @@ class Filters extends React.Component {
                                 }}
                             >
                             <MenuItem value=""><em>None</em></MenuItem>
-                            <MenuItem value={'giloma - grade i'}>Giloma - Grade I</MenuItem>
-                            <MenuItem value={'giloma - grade ii'}>Giloma - Grade II</MenuItem>
-                            <MenuItem value={'giloma - grade iii'}>Giloma - Grade III</MenuItem>
-                            <MenuItem value={'giloma - grade iv'}>Giloma - Grade IV</MenuItem>
+                            <MenuItem value={'glioma - grade i'}>Glioma - Grade I</MenuItem>
+                            <MenuItem value={'glioma - grade ii'}>Glioma - Grade II</MenuItem>
+                            <MenuItem value={'glioma - grade iii'}>Glioma - Grade III</MenuItem>
+                            <MenuItem value={'glioma - grade iv'}>Glioma - Grade IV</MenuItem>
                             <MenuItem value={'meningioma'}>Meningioma</MenuItem>
                             <MenuItem value={'brain metastases'}>Brain metastases</MenuItem>
                             <MenuItem value={'schwannoma'}>Schwannoma</MenuItem>
@@ -192,10 +192,9 @@ class Filters extends React.Component {
                         </FormControl> 
                     </Grid>
                     <Grid item xs={2}>
-                        <FormControl className={classes.formControl} disabled >
+                        <FormControl className={classes.formControl} >
                             <InputLabel htmlFor="primary-recurrent-simple">Primary/Recurrent</InputLabel>
                             <Select
-                                disabled={true}
                                 style={{width: 165}}
                                 value={filters.primaryRecurrent}
                                 onChange={this.handleChange}
@@ -207,10 +206,9 @@ class Filters extends React.Component {
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={true}>Yes</MenuItem>
-                                <MenuItem value={false}>No</MenuItem>
+                                <MenuItem value={'primary'}>Primary</MenuItem>
+                                <MenuItem value={'recurrent'}>Recurrent</MenuItem>
                             </Select>
-                            <FormHelperText>Disabled</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item xs={2}>

@@ -31,7 +31,25 @@ function buildQuery ( params ) {
         query += "AND ";
     }
 
-    if (searchTerms.length > 0) {
+    if (params.primaryRecurrent === 'primary') {
+        query += "stud.brief_title LIKE '% Primary%'"
+        query += "AND ";
+    }
+
+    if (params.primaryRecurrent === 'recurrent') {
+        query += "stud.brief_title LIKE '% Recurrent%'"
+        query += "AND ";
+    }
+
+    if (params.tumorDiagnosis.indexOf('glioma') != '-1') {
+        query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(glioma)%' ";
+        query += "AND ";
+
+        const tumorGrade = params.tumorDiagnosis.split('grade')[1].trim();
+
+        query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '% " + tumorGrade + " %' "; 
+        query += "AND ";
+    } else if (searchTerms.length > 0) {
         // query += ' AND ';
         query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(" + searchTerms.join('|') + ")%' ";
     
