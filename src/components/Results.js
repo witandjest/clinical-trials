@@ -177,6 +177,20 @@ class CustomPaginationActionsTable extends React.Component {
                                 color="secondary"
                               />
                           }
+                          {
+                             row.errorKPS &&
+                              <Chip
+                                avatar={
+                                  <Avatar>
+                                    <WarningIcon />
+                                  </Avatar>
+                                }
+                                label="KPS"
+                                className={classes.chip}
+                                variant="outlined"
+                                color="secondary"
+                              />
+                          }
                         </TableCell>
                         <TableCell style={{width: 200}}>
                           <SimplePopover

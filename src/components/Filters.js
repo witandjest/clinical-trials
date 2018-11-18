@@ -112,7 +112,7 @@ class Filters extends React.Component {
                         </FormControl> 
                     </Grid>
                     <Grid item xs={1}>
-                        <FormControl className={classes.formControl} disabled>
+                        <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="kps-simple">KPS</InputLabel>
                             <Select
                                 style={{width: 70}}
@@ -137,7 +137,6 @@ class Filters extends React.Component {
                                 <MenuItem value={90}>90</MenuItem>
                                 <MenuItem value={100}>100</MenuItem>
                             </Select>
-                            <FormHelperText>Disabled</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item xs={1}>

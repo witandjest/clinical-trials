@@ -30,9 +30,9 @@ app.get('/trials', function (req, res) {
         delete params.labelWidth;
     }
 
-    const query = buildQuery(params);
+    // const query = buildQuery(params);
 
-    // let query = "select * from eligibilities where criteria like '%ECOG%' order by 1 desc limit 100;";
+    let query = "select * from eligibilities where criteria like '%KPS%' and criteria like '%ECOG%' order by 1 desc limit 100;";
 
     console.log(query);
 
@@ -53,6 +53,7 @@ app.listen(3000, function () {
 
 function cleanData ( data, filterData ) {
     let processedData = [];
+    const validKPSStrings = buildKPSStrings(filterData['KPS']);
 
     for (const key of Object.keys(data)) {
         let cleanedData = {};
@@ -62,20 +63,21 @@ function cleanData ( data, filterData ) {
         cleanedData['title'] = data[key]['title'];
       
         let isValid = true;
-        if ( cleanedData['criteria'].indexOf('ECOG') != -1 && filterData['ECOG'] ) {
+        if ( isValid && cleanedData['criteria'].indexOf('ECOG') != -1 && filterData['ECOG'] ) {
             const { validECOG, errorECOG } = checkECOG(cleanedData['criteria'], filterData['ECOG']);
-            isValid = validECOG || errorECOG;
+            isValid = isValid && ( validECOG || errorECOG );
             cleanedData['errorECOG'] = errorECOG;
         }
 
-        // todo: implement
-        // if ( cleanedData['criteria'].indexOf('KPS') != -1 ) {
-        //     isValid = checkKPS(cleanedData['criteria'], 50);
-        // }
-
-        if (cleanedData['errorECOG']) {
-            console.log('ECOG error');
+        if ( isValid && cleanedData['criteria'].indexOf('KPS') != -1 && filterData['KPS']) {
+            const { validKPS, errorKPS } = checkKPS(cleanedData['criteria'], validKPSStrings);
+            isValid = isValid && ( validKPS || errorKPS );
+            cleanedData['errorKPS'] = errorKPS;
         }
+
+        // if (cleanedData['errorKPS']) {
+        //     console.log('KPS error');
+        // }
         
         if (isValid) {
             processedData.push(cleanedData);
@@ -123,16 +125,82 @@ function checkECOG ( criteria, ECOG ) {
 
 }
 
-const validKPSStrings = {
+// const validKPSStrings = {
+//     10: [],
+//     20: [],
+//     30: [],
+//     40: ['≥40'],
+//     50: ['>40', '≥40', '≥50'],
+//     60: ['>40', '>50', '≥40', '≥50', '≥60'],
+//     70: ['>40', '>50', '>60', '≥40', '≥50', '≥60', '≥70'],
+//     80: ['>40', '>50', '>60', '>70', '≥40', '≥50', '≥60', '≥70', '≥80'],
+//     90: ['>40', '>50', '>60', '>70', '>80', '≥40', '≥50', '≥60', '≥70', '≥80', '≥90'],
+//     100: ['>40', '>50', '>60', '>70', '>80', '>90', '≥40', '≥50', '≥60', '≥70', '≥80', '≥90'],
+// };
 
-};
 
-function checkKPS ( criteria, KPS ) {
+function checkKPS ( criteria, validStrings ) {
+    let validKPS = false, errorKPS = false;
+    let sampleString = criteria;
 
-    // todo: implement
+    sampleString = sampleString.substring(sampleString.indexOf('KPS'));
+    sampleString = sampleString.split(/\r?\n/g, 1)[0];
+    
+    for (const stringKey of Object.keys(validStrings)) {
+        let searchString = validStrings[stringKey].replace(/ /g,'');
+        if (sampleString.replace(/ /g,'').indexOf(searchString) != -1) {
+            validKPS = true;
+        }
+    }
+
+    // todo: improve the logic tracking if KPS is in inclusion or exclusion criteria
+    if (criteria.toLowerCase().indexOf('exclusion') < criteria.toLowerCase().indexOf('KPS')) {
+        validKPS = !validKPS;
+    }
+
+    console.log(' ------ ');
+    console.log(sampleString);
+
+    errorKPS = ( sampleString.split(/\d+/g, 1)[0] == sampleString );
+
+    return { validKPS, errorKPS };
 
 }
 
+
+function buildKPSStrings ( KPS ) {
+    const KPSOptions = ['10', '20', '30', '40', '50', '60', '70', '80', '90', '100'];
+    const KPSPrefixes = ['greater than or equal to', 'at least', '≥']
+    const KPSSuffixes = ['or greater', 'or higher', 'or more', 'or above'];
+    const KPSLowerPrefixes = ['>'];
+    let KPSStrings = [];
+
+    console.log('uhhh');
+    for (var i = 0; i < KPSOptions.length; i++) {
+        console.log('uhhhhhhhh');
+        const KPSOption = KPSOptions[i];
+        if (parseInt(KPSOption) <= parseInt(KPS)) {
+            for (var j = 0; j < KPSPrefixes.length; j++) {
+                KPSStrings.push(KPSPrefixes[j] + ' ' + KPSOption);
+            }
+
+            for (var k = 0; k < KPSSuffixes.length; k++) {
+                KPSStrings.push(KPSOption + ' ' + KPSSuffixes[k]);
+            }
+        }
+
+        if (( parseInt(KPSOption) + 10 ) <= parseInt(KPS)) { // doing < here so need the lower (not equal) cases
+            for (var x = 0; x < KPSLowerPrefixes.length; x++) {
+                KPSStrings.push(KPSLowerPrefixes[x] + ' ' + KPSOption);
+            }
+        }
+
+
+    }
+
+    return KPSStrings;
+
+}
 
 // function nl2br ( text ) {
 //     return text.replace("\r", "<br/>").replace("\n", "<br/>");
