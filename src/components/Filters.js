@@ -103,7 +103,6 @@ class Filters extends React.Component {
                             <MenuItem value={'glioma - grade ii'}>Glioma - Grade II</MenuItem>
                             <MenuItem value={'glioma - grade iii'}>Glioma - Grade III</MenuItem>
                             <MenuItem value={'glioma - grade iv'}>Glioma - Grade IV</MenuItem>
-                            <MenuItem value={'glioma - grade iii/iv'}>Glioma - Grade III/IV</MenuItem>
                             <MenuItem value={'meningioma'}>Meningioma</MenuItem>
                             <MenuItem value={'brain metastases'}>Brain metastases</MenuItem>
                             <MenuItem value={'schwannoma'}>Schwannoma</MenuItem>
@@ -113,7 +112,7 @@ class Filters extends React.Component {
                         </FormControl> 
                     </Grid>
                     <Grid item xs={1}>
-                        <FormControl className={classes.formControl} disabled>
+                        <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="kps-simple">KPS</InputLabel>
                             <Select
                                 style={{width: 70}}
@@ -138,11 +137,10 @@ class Filters extends React.Component {
                                 <MenuItem value={90}>90</MenuItem>
                                 <MenuItem value={100}>100</MenuItem>
                             </Select>
-                            <FormHelperText>Disabled</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item xs={1}>
-                        <FormControl className={classes.formControl} disabled>
+                        <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="ecog-simple">ECOG</InputLabel>
                             <Select
                                 style={{width: 70}}
@@ -162,7 +160,7 @@ class Filters extends React.Component {
                                 <MenuItem value={3}>3</MenuItem>
                                 <MenuItem value={4}>4</MenuItem>
                             </Select>
-                            <FormHelperText>Disabled</FormHelperText>
+                            {/* <FormHelperText>Disabled</FormHelperText> */}
                         </FormControl>
                     </Grid>
                     <Grid item xs={2}>
@@ -178,26 +176,25 @@ class Filters extends React.Component {
                                 }}
                             >
                                 <MenuItem value=""><em>None</em></MenuItem>
-                                <MenuItem value={'braf +'}>BRAF +</MenuItem>
-                                <MenuItem value={'braf -'}>BRAF -</MenuItem>
-                                <MenuItem value={'mgmt methylation +'}>MGMT methylation +</MenuItem>
-                                <MenuItem value={'mgmt methylation -'}>MGMT methylation -</MenuItem>
-                                <MenuItem value={'ras pathway mutation'}>RAS Pathway mutation</MenuItem>
-                                <MenuItem value={'raf pathway mutation'}>RAF Pathway mutation</MenuItem>
-                                <MenuItem value={'mek pathway mutation'}>MEK Pathway mutation</MenuItem>
-                                <MenuItem value={'erk pathway mutation'}>ERK Pathway mutation</MenuItem>
-                                <MenuItem value={'nras mutation'}>NRAS mutation</MenuItem>
-                                <MenuItem value={'kras mutation'}>KRAS mutation</MenuItem>
-                                <MenuItem value={'nf1 mutation'}>NF1 mutation</MenuItem>
-                                <MenuItem value={'nf2 mutation'}>NF2 mutation</MenuItem>
+                                <MenuItem value={' braf'}>BRAF +</MenuItem>
+                                <MenuItem value={' braf'}>BRAF -</MenuItem>
+                                <MenuItem value={' mgmt'}>MGMT methylation +</MenuItem>
+                                <MenuItem value={' mgmt'}>MGMT methylation -</MenuItem>
+                                <MenuItem value={' ras'}>RAS Pathway mutation</MenuItem>
+                                <MenuItem value={' raf'}>RAF Pathway mutation</MenuItem>
+                                <MenuItem value={' mek'}>MEK Pathway mutation</MenuItem>
+                                <MenuItem value={' erk'}>ERK Pathway mutation</MenuItem>
+                                <MenuItem value={' nras'}>NRAS mutation</MenuItem>
+                                <MenuItem value={' kras'}>KRAS mutation</MenuItem>
+                                <MenuItem value={' nf1'}>NF1 mutation</MenuItem>
+                                <MenuItem value={' nf2'}>NF2 mutation</MenuItem>
                             </Select>
                         </FormControl> 
                     </Grid>
                     <Grid item xs={2}>
-                        <FormControl className={classes.formControl} disabled >
+                        <FormControl className={classes.formControl} >
                             <InputLabel htmlFor="primary-recurrent-simple">Primary/Recurrent</InputLabel>
                             <Select
-                                disabled={true}
                                 style={{width: 165}}
                                 value={filters.primaryRecurrent}
                                 onChange={this.handleChange}
@@ -209,10 +206,9 @@ class Filters extends React.Component {
                                 <MenuItem value="">
                                 <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={true}>Yes</MenuItem>
-                                <MenuItem value={false}>No</MenuItem>
+                                <MenuItem value={'primary'}>Primary</MenuItem>
+                                <MenuItem value={'recurrent'}>Recurrent</MenuItem>
                             </Select>
-                            <FormHelperText>Disabled</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item xs={2}>
@@ -238,12 +234,12 @@ class Filters extends React.Component {
                         </FormControl>
                     </Grid>
                     <Grid item xs={4} style={{paddingTop: 20}}>
-                        <ConditionList 
+                        {/* <ConditionList 
                             selectedItem={selectedItem}
                             handleKeyDownMulti={handleKeyDownMulti}
                             handleChangeMulti={handleChangeMulti}
                             handleDeleteMulti={handleDeleteMulti}
-                        />
+                        /> */}
                     </Grid>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={2} style={{paddingTop: 40, paddingLeft: 60}}>

@@ -14,6 +14,9 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+import WarningIcon from '@material-ui/icons/Warning';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 
 import { CircularProgress } from '@material-ui/core';
 
@@ -133,6 +136,7 @@ class CustomPaginationActionsTable extends React.Component {
 
   render() {
     const { classes, rows, loading } = this.props;
+    console.log(rows);
     const { rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -159,6 +163,34 @@ class CustomPaginationActionsTable extends React.Component {
                       <TableRow key={row.id}>
                         <TableCell component="th" scope="row" style={{width: 600}}>
                           {row.title || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '}
+                          {
+                             row.errorECOG &&
+                              <Chip
+                                avatar={
+                                  <Avatar>
+                                    <WarningIcon />
+                                  </Avatar>
+                                }
+                                label="ECOG"
+                                className={classes.chip}
+                                variant="outlined"
+                                color="secondary"
+                              />
+                          }
+                          {
+                             row.errorKPS &&
+                              <Chip
+                                avatar={
+                                  <Avatar>
+                                    <WarningIcon />
+                                  </Avatar>
+                                }
+                                label="KPS"
+                                className={classes.chip}
+                                variant="outlined"
+                                color="secondary"
+                              />
+                          }
                         </TableCell>
                         <TableCell style={{width: 200}}>
                           <SimplePopover
