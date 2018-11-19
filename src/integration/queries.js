@@ -73,7 +73,7 @@ function buildQuery ( params ) {
         query = query.substr(0, query.length - 6);
     }
 
-    query += 'ORDER BY 1 DESC LIMIT 50';
+    query += 'ORDER BY 1 DESC LIMIT 100';
 
     return query;
 }
