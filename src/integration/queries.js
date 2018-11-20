@@ -45,12 +45,17 @@ function buildQuery ( params ) {
 
     if (params.tumorDiagnosis) {
         if (params.tumorDiagnosis.indexOf('glioma') != '-1') {
-            query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(glioma)%' ";
+            query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%glioma%' ";
             query += "AND ";
     
             const tumorGrade = params.tumorDiagnosis.split('grade')[1].trim();
-    
-            query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '% " + tumorGrade + " %' "; 
+
+            if (tumorGrade === 'i' || tumorGrade === 'ii') {
+                query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') NOT SIMILAR TO '%high grade glioma%' ";
+                query += "AND ";
+            }
+     
+            query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%grade " + tumorGrade + " %' "; 
             query += "AND ";
         } else {
             query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(" + params.tumorDiagnosis + ")%' ";
