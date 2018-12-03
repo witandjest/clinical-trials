@@ -126,6 +126,12 @@ class CustomPaginationActionsTable extends React.Component {
     rowsPerPage: 10,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.rows && nextProps.rows.length !== this.props.rows.length) {
+        this.setState({page: 0});
+    }
+  }
+
   handleChangePage = (event, page) => {
     this.setState({ page });
   };
@@ -136,7 +142,6 @@ class CustomPaginationActionsTable extends React.Component {
 
   render() {
     const { classes, rows, loading } = this.props;
-    console.log(rows);
     const { rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
