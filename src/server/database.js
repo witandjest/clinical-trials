@@ -50,8 +50,20 @@ function buildQuery ( params ) {
      
             query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%grade " + tumorGrade + " %' "; 
             query += "AND ";
+        // } else if (params.tumorDiagnosis.indexOf('metastases') != '-1') {
+        //     query += "(regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(" + params.tumorDiagnosis + ")%' ";
+        //     query += "OR ";
+        //     query += "LOWER(stud.brief_title) LIKE '%brain metastases%')"
+        //     query += "AND ";
+        // } else if (params.tumorDiagnosis.indexOf('sheath') != '-1') {
+        //     query += "(regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(" + params.tumorDiagnosis + ")%' ";
+        //     query += "OR ";
+        //     query += "LOWER(stud.brief_title) LIKE '%malignant peripheral nerve sheath%')"
+        //     query += "AND ";
         } else {
-            query += "regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(" + params.tumorDiagnosis + ")%' ";
+            query += "(regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '1')), '\s+', ' ', 'g') SIMILAR TO '%(" + params.tumorDiagnosis + ")%' ";
+            query += "OR ";
+            query += "LOWER(stud.brief_title) LIKE '%" + params.tumorDiagnosis + "%') "
             query += "AND ";
         }
     }
@@ -71,7 +83,7 @@ function buildQuery ( params ) {
         query = query.substr(0, query.length - 6);
     }
 
-    query += 'ORDER BY 1 DESC LIMIT 50';
+    query += 'ORDER BY 1 DESC LIMIT 100';
 
     return query;
 }
