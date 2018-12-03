@@ -1,5 +1,48 @@
 /* HELPER AND PARSING FUNCTIONS BEGIN */
 
+// currently only grabs after the field appears, we ned to grab before too
+// continue using regex, check the open stackoverflow link
+
+
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ !!!!!
+function getCriteriaChunk ( criteria, field ) {
+    // const fieldIndex = criteria.indexOf(field);
+    let criteriaChunk = criteria.substring(criteria.indexOf(field));
+    criteriaChunk = criteriaChunk.split(/\r?\n/g, 1)[0];
+
+    // const test = criteria.match(/\r?\n(.*\r?\n.*(?:Glioma|glioma).*\r?\n.*)\r?\n/g);
+    // console.log(test);
+
+    // const test2 = criteria.match(/\r?\n(?:.*\r?\n.*(.{0,15}(?:Glioma|glioma)(?:\s{1}|\.|,|s).{0,15}).*\r?\n.*)\r?\n/g);
+    // console.log(test2);
+
+    return criteriaChunk;   
+}
+
+// Pull Glioma logic out of the buildQuery and into a post-processing
+// - match 'glioma' in the query, and then check the grades here
+
+
+// Fix brain metastases results not returning any results
+
+function checkGliomaGrade ( criteria, validGliomaStrings ) {
+    let validGlioma = false;
+    const gliomaSplit = criteria.match(/\r?\n(.*\r?\n.*(?:Glioma|glioma)(?:\s{1}|\.|,|s).*\r?\n.*)\r?\n/g);
+    if (gliomaSplit == undefined) {
+        return {valid: false, error: false};
+    }
+
+    for (const key of Object.keys(gliomaSplit)) {
+        if (!validGlioma) {
+            const { valid, error } = checkField(gliomaSplit[key], 'glioma', validGliomaStrings, false, false);
+            validGlioma = valid;
+        }
+    }
+
+    return {valid: validGlioma, error: false};
+}
+
 const validECOGStrings = {
     0: ['0', '0-1', '0-2', '0-3', '0 or 1', '0, 1, or 2', '≤ 1', '≤1', '≤ 2', '≤2', '=< 2', '0 to 2', '3 or worse', 'less than or equal to 2'],
     1: ['0-1', '0-2', '0-3', '0 or 1', '0, 1, or 2', '≤ 1', '≤1', '≤ 2', '≤2', '=< 2', '0 to 2', '3 or worse', 'less than or equal to 2'],
@@ -8,81 +51,59 @@ const validECOGStrings = {
     4: ['2 or higher']
 }
 
-function checkECOG ( criteria, ECOG ) {
-    let validECOG = false, errorECOG = false;
-    let sampleString = criteria;
+function checkField ( 
+    criteria, 
+    field, 
+    validStrings, 
+    numberExpected, 
+    trimWhitespace 
+    ) {
+        let valid = false, error = false;
 
-    sampleString = sampleString.substring(sampleString.indexOf('ECOG'));
-    sampleString = sampleString.split(/\r?\n/g, 1)[0];
+        let criteriaChunk = trimWhitespace ? getCriteriaChunk(criteria, field) : criteria;
 
-    const validStrings = validECOGStrings[ECOG];
-    for (const stringKey of Object.keys(validStrings)) {
-        let searchString = validStrings[stringKey].replace(/ /g,'');
-        if (sampleString.replace(/ /g,'').indexOf(searchString) != -1) {
-            validECOG = true;
+        for (const stringKey of Object.keys(validStrings)) {
+            if (trimWhitespace) {
+                let searchString = validStrings[stringKey].replace(/ /g,'');
+                if (criteriaChunk.replace(/ /g,'').toLowerCase().indexOf(searchString) != -1) {
+                    valid = true;
+                }
+            } else {
+                let searchString = validStrings[stringKey];
+                if (criteriaChunk.toLowerCase().indexOf(searchString) != -1) {
+                    valid = true;
+                }
+            }
+            
         }
-    }
 
-    // todo: improve the logic tracking if ECOG is in inclusion or exclusion criteria
-    if (criteria.toLowerCase().indexOf('exclusion') < criteria.toLowerCase().indexOf('ECOG')) {
-        validECOG = !validECOG;
-    }
+        // todo: improve the logic tracking if field is in inclusion or exclusion criteria
+        if (valid && criteria.toLowerCase().indexOf('exclusion') != -1 && criteria.toLowerCase().indexOf('exclusion') < criteria.toLowerCase().indexOf(field)) {
+            valid = !valid;
+        }
 
-    console.log(' ------ ');
-    console.log(sampleString);
+        if (numberExpected) {
+            error = ( criteriaChunk.split(/\d+/g, 1)[0] == criteriaChunk ); // if no number in chunk, return error
+        } else {
+            // todo: check if glioma grade is present or not
+        }
 
-    errorECOG = ( sampleString.split(/\d+/g, 1)[0] == sampleString );
+        if (field === 'glioma') {
+            console.log({
+                criteriaChunk,
+                valid,
+                error
+            });
+        }
 
-    return { validECOG, errorECOG };
-
+        return {valid, error};
 }
 
-// const validKPSStrings = {
-//     10: [],
-//     20: [],
-//     30: [],
-//     40: ['≥40'],
-//     50: ['>40', '≥40', '≥50'],
-//     60: ['>40', '>50', '≥40', '≥50', '≥60'],
-//     70: ['>40', '>50', '>60', '≥40', '≥50', '≥60', '≥70'],
-//     80: ['>40', '>50', '>60', '>70', '≥40', '≥50', '≥60', '≥70', '≥80'],
-//     90: ['>40', '>50', '>60', '>70', '>80', '≥40', '≥50', '≥60', '≥70', '≥80', '≥90'],
-//     100: ['>40', '>50', '>60', '>70', '>80', '>90', '≥40', '≥50', '≥60', '≥70', '≥80', '≥90'],
-// };
-
-
-function checkKPS ( criteria, validStrings ) {
-    let validKPS = false, errorKPS = false;
-    let sampleString = criteria;
-
-    sampleString = sampleString.substring(sampleString.indexOf('KPS'));
-    sampleString = sampleString.split(/\r?\n/g, 1)[0];
-    
-    for (const stringKey of Object.keys(validStrings)) {
-        let searchString = validStrings[stringKey].replace(/ /g,'');
-        if (sampleString.replace(/ /g,'').indexOf(searchString) != -1) {
-            validKPS = true;
-        }
-    }
-
-    // todo: improve the logic tracking if KPS is in inclusion or exclusion criteria
-    if (criteria.toLowerCase().indexOf('exclusion') < criteria.toLowerCase().indexOf('KPS')) {
-        validKPS = !validKPS;
-    }
-
-    console.log(' ------ ');
-    console.log(sampleString);
-
-    errorKPS = ( sampleString.split(/\d+/g, 1)[0] == sampleString );
-
-    return { validKPS, errorKPS };
-
-}
 
 
 function buildKPSStrings ( KPS ) {
     const KPSOptions = ['10', '20', '30', '40', '50', '60', '70', '80', '90', '100'];
-    const KPSPrefixes = ['greater than or equal to', 'at least', '≥']
+    const KPSPrefixes = ['greater than or equal to', 'at least', '≥', '>=']
     const KPSSuffixes = ['or greater', 'or higher', 'or more', 'or above'];
     const KPSLowerPrefixes = ['>'];
     let KPSStrings = [];
@@ -112,12 +133,20 @@ function buildKPSStrings ( KPS ) {
 
 }
 
+const gliomaStrings = {
+    'i': ['grade i ', 'grade i)', 'grade i,', 'grade i.', ' i glioma', 'low grade', 'low-grade'],
+    'ii': ['grade ii ', 'grade ii)', 'grade ii.', ' ii glioma', 'low grade', 'low-grade'],
+    'iii': ['iii', 'high grade', 'high-grade'],
+    'iv': ['iv', 'high grade', 'high-grade']
+}
+
 /* HELPER AND PARSING FUNCTIONS END */
 
 
 function cleanData ( data, filterData ) {
     let processedData = [];
     const validKPSStrings = buildKPSStrings(filterData['KPS']);
+    const checkGlioma = filterData['tumorDiagnosis'].indexOf('glioma') != -1;
 
     for (const key of Object.keys(data)) {
         let cleanedData = {};
@@ -127,16 +156,25 @@ function cleanData ( data, filterData ) {
         cleanedData['title'] = data[key]['title'];
       
         let isValid = true;
-        if ( isValid && cleanedData['criteria'].indexOf('ECOG') != -1 && filterData['ECOG'] ) {
-            const { validECOG, errorECOG } = checkECOG(cleanedData['criteria'], filterData['ECOG']);
+        if ( isValid && filterData['ECOG'] && cleanedData['criteria'].indexOf('ECOG') != -1 ) {
+            const { valid: validECOG, error: errorECOG } = checkField(cleanedData['criteria'], 'ECOG', validECOGStrings[filterData['ECOG']], true, true);
             isValid = isValid && ( validECOG || errorECOG );
             cleanedData['errorECOG'] = errorECOG;
         }
 
-        if ( isValid && cleanedData['criteria'].indexOf('KPS') != -1 && filterData['KPS']) {
-            const { validKPS, errorKPS } = checkKPS(cleanedData['criteria'], validKPSStrings);
+        if ( isValid && filterData['KPS'] && cleanedData['criteria'].indexOf('KPS') != -1) {
+            const { valid: validKPS, error: errorKPS } = checkField(cleanedData['criteria'], 'KPS', validKPSStrings, true, true);
             isValid = isValid && ( validKPS || errorKPS );
             cleanedData['errorKPS'] = errorKPS;
+        }
+
+        if ( isValid && checkGlioma && cleanedData['criteria'].indexOf('glioma') != -1) {
+            const gliomaGrade = filterData['tumorDiagnosis'].split('grade')[1].replace(/ /g,'');
+            const validGliomaStrings = gliomaStrings[gliomaGrade];
+            console.log(validGliomaStrings);
+            const { valid: validGlioma, error: errorGlioma } = checkGliomaGrade(cleanedData['criteria'], validGliomaStrings);
+            isValid = isValid && ( validGlioma || errorGlioma );
+            cleanedData['errorGlioma'] = errorGlioma;
         }
 
         // if (cleanedData['errorKPS']) {
