@@ -178,6 +178,8 @@ class Filters extends React.Component {
                                 <MenuItem value=""><em>None</em></MenuItem>
                                 <MenuItem value={' braf'}>BRAF +</MenuItem>
                                 <MenuItem value={' braf'}>BRAF -</MenuItem>
+                                <MenuItem value={' egfr'}>EGFR</MenuItem>
+                                <MenuItem value={' alk'}>ALK</MenuItem>
                                 <MenuItem value={' mgmt'}>MGMT methylation +</MenuItem>
                                 <MenuItem value={' mgmt'}>MGMT methylation -</MenuItem>
                                 <MenuItem value={' ras'}>RAS Pathway mutation</MenuItem>
