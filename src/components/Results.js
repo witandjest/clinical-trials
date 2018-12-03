@@ -141,16 +141,16 @@ class CustomPaginationActionsTable extends React.Component {
   };
 
   render() {
-    const { classes, rows, loading } = this.props;
+    const { classes, rows, loading, error } = this.props;
     const { rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
         {
-          loading || rows.length === 0 ? (
+          loading || rows.length === 0 || error ? (
             <div style={{margin: 'auto', width: 'fit-content', padding: 70}}>
-              { loading ? <CircularProgress size={50} /> : <span style={{fontFamily: 'Roboto'}}>No results found.</span> }
+              { loading ? <CircularProgress size={50} /> : error ? <span style={{fontFamily: 'Roboto', fontWeight: 'bold', color: '#b71b1b'}}>{error.message}</span> : <span style={{fontFamily: 'Roboto'}}>No results found.</span> }
             </div>
           ) : (
             <div className={classes.tableWrapper}>

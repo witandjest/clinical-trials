@@ -36,7 +36,8 @@ class App extends Component {
             labelWidth: 0
         },
         loading: false,
-        selectedItem: []
+        selectedItem: [],
+        error: false
     };
 
     updateState = event => {
@@ -47,7 +48,8 @@ class App extends Component {
 
     executeSearch = () => {
         this.setState({
-            loading: true
+            loading: true,
+            error: false
         });
 
         let filterData = this.state.filters;
@@ -69,9 +71,9 @@ class App extends Component {
                 // on error, we don't need to do anything as state won't get overwritten 
              })
              .catch(error => {
-                 console.log(error);
                  this.setState({
-                     loading: false
+                     loading: false,
+                     error: error
                  });
              });
     }
@@ -170,11 +172,15 @@ class App extends Component {
                         <Results 
                             rows={this.state.results}
                             loading={this.state.loading}
+                            error={this.state.error}
                         />
                     </Grid>
                 </Grid>
                 <div style={{margin: 'auto', width: 'fit-content', padding: 30, fontFamily: 'Roboto', color: '#aaaaaa'}}>
                     All data has been sourced from the AACT presented by the Clinical Trials Transformation Initiative. Accessible by link here: <a href="http://www.ctti-clinicaltrials.org">http://www.ctti-clinicaltrials.org</a>.
+                </div>
+                <div style={{margin: 'auto', width: 'fit-content', padding: 30, fontFamily: 'Roboto', color: '#cccccc', fontSize: 14}}>
+                    This application is meant to improve the ease of use of the Clinical Trials database and is not to be relied on as a single source of truth. Please validate all information before enrolling patients in any of the presented trials.
                 </div>
             </div>
         );
