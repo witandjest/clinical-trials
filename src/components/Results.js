@@ -17,6 +17,7 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import WarningIcon from '@material-ui/icons/Warning';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
 
 import { CircularProgress } from '@material-ui/core';
 
@@ -126,6 +127,12 @@ class CustomPaginationActionsTable extends React.Component {
     rowsPerPage: 10,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.rows && nextProps.rows !== this.props.rows) {
+        this.setState({page: 0});
+    }
+  }
+
   handleChangePage = (event, page) => {
     this.setState({ page });
   };
@@ -135,17 +142,16 @@ class CustomPaginationActionsTable extends React.Component {
   };
 
   render() {
-    const { classes, rows, loading } = this.props;
-    console.log(rows);
+    const { classes, rows, loading, error } = this.props;
     const { rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
         {
-          loading || rows.length === 0 ? (
+          loading || rows.length === 0 || error ? (
             <div style={{margin: 'auto', width: 'fit-content', padding: 70}}>
-              { loading ? <CircularProgress size={50} /> : <span style={{fontFamily: 'Roboto'}}>No results found.</span> }
+              { loading ? <CircularProgress size={50} /> : error ? <span style={{fontFamily: 'Roboto', fontWeight: 'bold', color: '#b71b1b'}}>{error.message}</span> : <span style={{fontFamily: 'Roboto'}}>No results found.</span> }
             </div>
           ) : (
             <div className={classes.tableWrapper}>
@@ -225,6 +231,23 @@ class CustomPaginationActionsTable extends React.Component {
               </Table>
             </div>
           )
+        }
+        {
+          (rows.length > 1 && page > 1 && page >= Math.ceil(rows.length / rowsPerPage) - 1) &&
+            <div style={{margin: 10, paddingBottom: 20, alignContent: 'center'}}>
+              <div style={{display: 'table', margin: '0 auto'}}>
+                <Button
+                  aria-owns={open ? 'simple-popper' : undefined}
+                  aria-haspopup="false"
+                  variant="outlined"
+                  onClick={this.props.loadMore}
+                  size="small"
+                  style={{paddingLeft: 60, paddingRight: 60}}
+                >
+                  Load More
+                </Button>
+              </div>
+            </div>
         }
       </Paper>
     );
