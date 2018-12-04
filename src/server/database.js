@@ -15,9 +15,11 @@ function buildQuery ( params ) {
     
 
     if (params.age) { // todo: fix bug here around ages being in months in some cases
-        query += "NOT NULLIF(regexp_replace(elig.minimum_age, '\\D','','g'), '')::int > " + params.age + " ";
+        query += "( NOT NULLIF(regexp_replace(elig.minimum_age, '\\D','','g'), '')::int > " + params.age + " ";
+        query += " OR elig.minimum_age = 'N/A' ) "
         query += "AND ";
-        query += "NOT NULLIF(regexp_replace(elig.maximum_age, '\\D','','g'), '')::int < " + params.age + " ";
+        query += "( NOT NULLIF(regexp_replace(elig.maximum_age, '\\D','','g'), '')::int < " + params.age + " ";
+        query += " OR elig.maximum_age = 'N/A' ) "
         query += "AND ";
     }
 

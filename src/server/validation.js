@@ -171,7 +171,6 @@ function cleanData ( data, filterData ) {
         if ( isValid && checkGlioma && cleanedData['criteria'].indexOf('glioma') != -1) {
             const gliomaGrade = filterData['tumorDiagnosis'].split('grade')[1].replace(/ /g,'');
             const validGliomaStrings = gliomaStrings[gliomaGrade];
-            console.log(validGliomaStrings);
             const { valid: validGlioma, error: errorGlioma } = checkGliomaGrade(cleanedData['criteria'], validGliomaStrings);
             isValid = isValid && ( validGlioma || errorGlioma );
             cleanedData['errorGlioma'] = errorGlioma;
