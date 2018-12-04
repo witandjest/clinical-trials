@@ -75,6 +75,12 @@ function buildQuery ( params ) {
         query += "AND regexp_replace(LOWER(SPLIT_PART(LOWER(elig.criteria), LOWER('Exclusion Criteria'), '2')), '\s+', ' ', 'g') NOT SIMILAR TO '%(" + searchTerms.join('|') + ")%' ";
         query += "AND ";
     }
+
+    if (params.excludeResults) {
+        const excludeString = params.excludeResults.join("','");
+        query += "elig.nct_id NOT IN ('" + excludeString + "') ";
+        query += "AND ";
+    }
     
 
     if ( query.substr(-4).indexOf('AND') !== -1 ) {

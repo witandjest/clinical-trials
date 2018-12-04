@@ -17,6 +17,7 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import WarningIcon from '@material-ui/icons/Warning';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
 
 import { CircularProgress } from '@material-ui/core';
 
@@ -127,7 +128,7 @@ class CustomPaginationActionsTable extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.rows && nextProps.rows.length !== this.props.rows.length) {
+    if (nextProps.rows && nextProps.rows !== this.props.rows) {
         this.setState({page: 0});
     }
   }
@@ -230,6 +231,23 @@ class CustomPaginationActionsTable extends React.Component {
               </Table>
             </div>
           )
+        }
+        {
+          (rows.length > 1 && page > 1 && page >= Math.ceil(rows.length / rowsPerPage) - 1) &&
+            <div style={{margin: 10, paddingBottom: 20, alignContent: 'center'}}>
+              <div style={{display: 'table', margin: '0 auto'}}>
+                <Button
+                  aria-owns={open ? 'simple-popper' : undefined}
+                  aria-haspopup="false"
+                  variant="outlined"
+                  onClick={this.props.loadMore}
+                  size="small"
+                  style={{paddingLeft: 60, paddingRight: 60}}
+                >
+                  Load More
+                </Button>
+              </div>
+            </div>
         }
       </Paper>
     );
